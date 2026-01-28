@@ -1,0 +1,149 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Fonte */
+@font-face {
+  font-family: 'Ari W9500';
+  src: url('../fonts/ari-w9500.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Ari W9500';
+  src: url('../fonts/ari-w9500-bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+}
+
+/* Display */
+@font-face {
+  font-family: 'Ari W9500 Display';
+  src: url('../fonts/ari-w9500-display.ttf') format('truetype');
+  font-weight: 400;
+}
+
+/* Condensed */
+@font-face {
+  font-family: 'Ari W9500 Condensed';
+  src: url('../fonts/ari-w9500-condensed.ttf') format('truetype');
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: 'Ari W9500 Condensed';
+  src: url('../fonts/ari-w9500-condensed-bold.ttf') format('truetype');
+  font-weight: 700;
+}
+
+/* Condensed Display */
+@font-face {
+  font-family: 'Ari W9500 Condensed Display';
+  src: url('../fonts/ari-w9500-condensed-display.ttf') format('truetype');
+  font-weight: 400;
+}
+
+
+/* Variaveis globais */
+:root {
+  --font-base: 'Ari W9500', system-ui, sans-serif;
+  --font-display: 'Ari W9500 Display', 'Ari W9500', sans-serif;
+  --font-condensed: 'Ari W9500 Condensed', 'Ari W9500', sans-serif;
+
+  --font-size-base: 16px;
+  --line-height-base: 1.4;
+}
+
+body {
+  font-family: var(--font-base);
+  font-size: 1rem;
+  line-height: var(--line-height-base);
+}
+
+h1, h2 {
+  font-family: var(--font-display);
+  font-weight: 400;
+}
+
+.introTurmas {
+  width: 100vw;
+  display: flex;
+  gap: 30px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #000000;
+}
+.selectionTurmas{
+  width: 100vw;
+  padding: clamp(16px, 5vw, 100px); /* o clamp ajusta o padding conforme o tamanho da tela */
+  display: flex;
+  flex-direction: column;
+  gap: clamp(30px, 3vw, 70px);
+}
+
+.headerSelection{
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+.title {
+  color: #FFFFFF;
+  font-size: clamp(1.1rem, 4vw, 2.6rem);
+  line-height: 1.1;
+}
+
+.apelidoTurma, .anoIngresso{
+  color: #FFFFFF;
+font-size: clamp(0.9rem, 2.5vw, 1.8rem);
+}
+
+.listTurmas{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(25px, 2vw, 50px);
+}
+.itemTurmas{
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  border-radius: 12px;
+  padding: clamp(12px, 2vw, 24px);
+  transition: 
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
+  cursor: pointer;
+}
+.itemTurmas:hover {
+  transform: translateY(-6px) scale(1.02);
+  background: rgba(255, 255, 255, 0.05);
+  box-shadow:
+    0 0 8px #00f7ff,
+    0 0 16px #00f7ff,
+    inset 0 0 8px rgba(255,255,255,0.1);
+}
+.apelidoItemTurmas{
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.ghostTurma{
+  width: clamp(45px, 8vw, 80px);
+  height: clamp(45px, 8vw, 80px);
+}
+#logoForms{
+  width: clamp(300px, 15vw, 500px);
+}
+
+.anoIngresso{
+  text-align: center;
+  display: flex;
+  align-items: center;
+}

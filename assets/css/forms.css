@@ -785,3 +785,10 @@ body {
     max-height: 200px;
     overflow: hidden;
 }
+
+#music-preview {
+    display: none;
+    align-items: center;
+    gap: 10px;
+    margin-top: 5px;
+}

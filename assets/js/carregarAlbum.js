@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             timeoutToken = setTimeout(() => {
                 buscarMusica(termo);
-            }, 800);
+            }, 1000);
         });
     }
 
@@ -35,6 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 // 1. Atualiza o Preview visual
                 imgAlbum.src = capaAlta;
+                imgAlbum.crossOrigin = "anonymous";
                 txtTrack.innerText = musica.trackName;
                 txtArtist.innerText = musica.artistName;
                 previewContainer.style.display = 'flex';

@@ -126,6 +126,7 @@ const exportCard = () => {
     // AJUSTES DE FONTE
     ajustarFonte('export-nome', 53);
     ajustarFontesEmGrupo(['export-instagram', 'export-twitter', 'export-sexualidade','export-rel'], 33);
+    ajustarFonte('export-musica', 15);
 
     // --- PROCESSO DE EXPORTAÇÃO ---
     btnFinalizar.innerText = "PROCESSANDO...";

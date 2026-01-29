@@ -8,110 +8,87 @@
     <link rel="stylesheet" href="assets/css/forms.css">
 </head>
 <body>
-     <div class = "map">
-            <img class = "top_left" src="assets/img/map_top_left.png" alt="">
-            <img class = "top_midle" src="assets/img/map_top_midle.png" alt="">
-            <img class = "top_right" src="assets/img/map_top_right.png" alt="">
-        </div>
     <main class="container">
         <header class="logoHeader">
             <img src="assets/img/titulo.png" alt="Caça Calouros Logo">
         </header>
-        <section class="forms">
-            <div class="topSection">           
-                <div class="basicInfo">
-                    <div class="fotoInput">
-                        <button type="button">Insira uma foto sua :)</button>
-                    </div>
 
-                    <div class="inputGroup">
-                        <label>Nome</label>
-                        <input type="text" placeholder="Nome">
-                    </div>
+        <section class="maze-container">
+            <div class="tunnel tunnel-left"></div>
+            <div class="tunnel tunnel-right"></div>
 
-                    <div class="row">
-                        <div class="inputGroup">
-                            <label>Idade</label>
-                            <input type="text" placeholder="Idade">
-                        </div>
-
-                        <div class="inputGroup">
-                            <label>Sexualidade</label>
-                            <input type="text" placeholder="Sexualidade">
+            <div class="content">
+                <div class="topSection">
+                    <div class="fotoContainer">
+                        <div class="uploadBox">
+                            <span class="plus">+</span>
+                            <span class="upload-text">Insira uma foto sua :)</span>
                         </div>
                     </div>
 
-                    <div class="row">
+                    <div class="infoFields">
                         <div class="inputGroup">
-                            <label>Pronomes</label>
-                            <input type="text" placeholder="Pronomes">
+                            <label>Nome</label>
+                            <input type="text" placeholder="Nome">
                         </div>
-
-                        <div class="inputGroup">
-                            <label>Cidade</label>
-                            <input type="text" placeholder="Cidade">
+                        <div class="row">
+                            <div class="inputGroup">
+                                <label>Idade</label>
+                                <input type="text" placeholder="Idade">
+                            </div>
+                            <div class="inputGroup">
+                                <label>Sexualidade</label>
+                                <input type="text" placeholder="Sexualidade">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="inputGroup">
+                                <label>Pronomes</label>
+                                <input type="text" placeholder="Pronomes">
+                            </div>
+                            <div class="inputGroup">
+                                <label>Cidade</label>
+                                <input type="text" placeholder="Cidade">
+                            </div>
                         </div>
                     </div>
+                </div>
 
+                <div class="statusSection">
+                    <span>Relacionamento:</span>
+                    <div class="pacman-yellow"></div>
+                    <label class="radio-item">
+                        <input type="radio" name="rel" checked>
+                        <span class="circle"></span> Solteiro(a)
+                    </label>
+                    <label class="radio-item">
+                        <input type="radio" name="rel">
+                        <span class="circle"></span> Namorando
+                    </label>
+                    <label class="radio-item">
+                        <input type="radio" name="rel">
+                        <span class="circle"></span> Enrolado
+                    </label>
+                </div>
+
+                <div class="bottomFields">
+                    <div class="inputGroup"><label>Instagram</label><input type="text" placeholder="Instagram"></div>
+                    <div class="inputGroup"><label>Twitter</label><input type="text" placeholder="Twitter"></div>
+                    <div class="inputGroup"><label>Hobbies</label><input type="text" placeholder="Hobbies"></div>
+                    <div class="inputGroup"><label>Música do momento</label><input type="text" placeholder="Música do momento"></div>
+                    
+                    <div class="happy-field">
+                        <label>Algo que te faz feliz (Hobby/Amigos/Animalzinho^^)</label>
+                        <div class="fake-upload-input">
+                            <input type="text" placeholder="Algo que te faz feliz...">
+                            <button type="button">+ Upload</button>
+                        </div>
+                    </div>
                 </div>
             </div>
-
-            <!-- Seção de relacionamentos -->
-            <div class="statusSection">
-                <span>Relacionamento:</span>
-
-                <img src="assets/img/pacman.png" alt="">
-
-                <label class="radioPacman">
-                    <input type="radio" name="status" value="solteiro">
-                    <span class="dot"></span> Solteiro(a)
-                </label>
-
-                <label class="radioPacman">
-                    <input type="radio" name="status" value="namorando">
-                    <span class="dot"></span> Namorando
-                </label>
-
-                <label class="radioPacman">
-                    <input type="radio" name="status" value="enrolado">
-                    <span class="dot"></span> Enrolado
-                </label>
-
-            </div>
-
-            <!-- Seção de redes sociais -->
-            <div class="bottomSession">
-                <div class="inputGroup">
-                    <label>Instagram</label>
-                    <input type="text" placeholder="Instagram">
-                </div>
-
-                <div class="inputGroup">
-                    <label>Twitter</label>
-                    <input type="text" placeholder="Twitter">
-                </div>
-
-                <div class="inputGroup">
-                    <label>Hobbies</label>
-                    <input type="text" placeholder="Hobbies">
-                </div>
-
-                <div class="inputGroup">
-                    <label>Música do momento</label>
-                    <input type="text" placeholder="Música do momento">
-                </div>
-
-                <label>Algo que te faz feliz (Hobby/Amigos/Animalzinho^^)</label>
-
-                <div class="fileInput">
-                    <button type="button">Insira uma imagem</button>
-                </div>
-
-            </div>
-
         </section>
 
-        <button id="botaoFinalizar" class="btn-pixel">FINALIZAR CARD</button>
+        <button class="btn-finalizar">FINALIZAR CARD</button>
 
         <footer class="logoFooter">
             <img src="assets/img/Logo.png" alt="CACCP">

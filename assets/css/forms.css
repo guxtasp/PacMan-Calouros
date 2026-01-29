@@ -1,207 +1,232 @@
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
+* { 
+    box-sizing: border-box; 
+    margin: 0; 
+    padding: 0; 
+    font-family: sans-serif; 
 }
 
-body {
-    background-color: #000000;
-    color: #FFFFFF;
-    line-height: 1.6;
+body { 
+    background-color: #000; 
+    color: #fff; 
+    padding: 20px; 
 }
 
-.map {
-    position: absolute;    
-    top: 0;
-    left: 0;
-    width: 100vw;       
-    height: 100vh;      
-    z-index: -1;       
-    pointer-events: none;
+.container { 
+    max-width: 600px; 
+    margin: 0 auto; 
 }
 
-.map img {
+.logoFooter { 
+    text-align: center; 
+    margin: 20px 0; 
+}
+
+.logoHeader { 
+    text-align: center; 
+    margin-top: 20px;
+    margin-bottom: -45px; 
+    position: relative;
+    z-index: 20; 
+}
+
+.logoHeader img { 
+    max-width: 80%; 
+    background-color: #000;
+    padding: 0 10px;
+}
+
+/* --- O LABIRINTO --- */
+.maze-container {
+    position: relative;
+    border: 6px double #2121ff;
+    border-radius: 40px;
+    padding: 50px 20px 40px 20px;
+    background-color: #000;
+    z-index: 1;
+    
+    min-height: 580px; 
+}
+
+.tunnel {
     position: absolute;
-    margin-left: auto;
+    width: 40px;
+    height: 90px;
+    background-color: #000;
+    
+    border-top: 6px double #2121ff;
+    border-bottom: 6px double #2121ff;
+    border-left: none;
+    border-right: none;
+    
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
 }
 
-.container {
-    max-width: 600px;
-    margin: 0 auto;
-    padding: 20px;
-    border-radius: 10px;
+/* Túnel Esquerdo */
+.tunnel-left {
+    left: -20px;
 }
 
-.logoHeader, .logoFooter {
-    text-align: center;
-    margin-bottom: 30px;
-    margin-top: 30px;
+/* Túnel Direito */
+.tunnel-right {
+    right: -20px;
 }
 
-.logoHeader img, .logoFooter img {
-    max-width: 100%;
-    height: auto;
-    display: block;
-    margin: 0 auto;
-}
-
-.forms {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
-
-.inputGroup {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 15px;
-    width: 100%;
-}
-
-.inputGroup label {
-    font-weight: bold;
-    margin-bottom: 5px;
-    color: #FFFFFF;
-    font-size: 0.9rem;
-}
-
-.inputGroup input {
-    padding: 10px;
-    border: 2px solid #ddd;
-    border-radius: 5px;
-    font-size: 1rem;
-    transition: border-color 0.3s;
-}
-
-.inputGroup input:focus {
-    border-color: #6c63ff;
-    outline: none;
-}
-
-.row {
-    display: flex;
+/* --- CONTEÚDO INTERNO --- */
+.topSection { 
+    display: flex; 
     gap: 15px; 
 }
 
-.row .inputGroup {
-    flex: 1;
+.foto-container {
+    width: 130px;
+    border: 4px solid #2121ff;
+    border-radius: 5px;
+    overflow: hidden;
 }
 
-.fileInput {
-    margin-bottom: 15px;
+.uploadBox {
+    background: #fff;
+    height: 190px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     text-align: center;
-}
-
-.fotoInput {
-    margin-bottom: 15px;
-    text-align: left;
-}
-
-.fotoInput button {
-    background-color: #ffffff;
-    color: #000000;
-    padding: 15px;
-    width: 40%;
+    color: #000;
     cursor: pointer;
-    font-weight: bold;
-    transition: background 0.3s;
 }
 
-.fotoInput button:hover {
-   background-color: #e0e0e0;
-   border-color: #6c63ff;
+.plus { 
+    font-size: 30px; 
+    font-weight: bold; 
 }
 
-.fileInput button {
-    background-color: #eee;
-    border: 2px dashed #aaa;
-    color: #555;
-    padding: 15px;
+.upload-text { 
+    font-size: 12px; 
+    font-weight: bold; 
+    text-transform: uppercase; 
+}
+
+.infoFields { 
+    flex: 1; 
+}
+
+.inputGroup { 
+    margin-bottom: 12px; 
+}
+
+.inputGroup label { 
+    display: block; 
+    font-size: 12px; 
+    font-weight: bold; 
+    margin-bottom: 4px; 
+}
+
+.inputGroup input {
     width: 100%;
-    border-radius: 8px;
-    cursor: pointer;
-    font-weight: bold;
-    transition: background 0.3s;
-}
-
-.fileInput button:hover {
-    background-color: #e0e0e0;
-    border-color: #6c63ff;
-}
-
-.statusSection {
+    background: transparent;
+    border: 1px solid #2121ff;
+    border-radius: 20px;
+    padding: 8px 15px;
     color: #fff;
-    padding: 20px;
-    border-radius: 8px;
+    outline: none;
+}
+
+.row { 
+    display: flex; 
+    gap: 8px; 
+}
+
+/* RELACIONAMENTO */
+.statusSection {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    transform: translateY(-50%); 
+    
+    /* Layout */
     display: flex;
-    flex-direction: row;
     align-items: center;
+    justify-content: center;
     gap: 10px;
-    text-align: center;
+    font-size: 11px;
+    
+    z-index: 20;
+    margin: 0;
 }
 
-.statusSection img {
-    width: 50px; 
-    margin: 10px 0;
+.bottomFields { 
+    margin-top: 250px; 
 }
 
-.radioPacman {
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-    font-size: 1.1rem;
-    margin: 5px 0;
-}
-
-.radioPacman input {
-    display: none;
-}
-
-.radioPacman .dot {
-    height: 15px;
-    width: 15px;
-    background-color: #FFFFFF;
+.pacman-yellow {
+    width: 25px;
+    height: 25px;
+    background: #ffff00;
+    clip-path: polygon(100% 0%, 100% 35%, 50% 50%, 100% 65%, 100% 100%, 0% 100%, 0% 0%);
     border-radius: 50%;
-    display: inline-block;
-    margin-right: 10px;
-    border: 2px solid #fff;
 }
 
-.radioPacman input:checked ~ .dot {
-    background-color: #ffcc00; 
-    box-shadow: 0 0 8px #ffcc00;
+.radio-item { 
+    display: flex; 
+    align-items: center; 
+    cursor: pointer; 
 }
 
+.radio-item input { 
+    display: none; 
+}
 
-.btn-pixel {
+.circle {
+    width: 12px;
+    height: 12px;
+    background: #fff;
+    border-radius: 50%;
+    margin-right: 5px;
+}
+.radio-item input:checked + .circle {
+    background: #ffff00;
+    box-shadow: 0 0 10px #ffff00;
+}
+
+/* INPUT FELIZ */
+.fake-upload-input {
+    display: flex;
+    border: 1px solid #2121ff;
+    border-radius: 20px;
+    overflow: hidden;
+    margin-top: 5px;
+}
+.fake-upload-input input { 
+    border: none; 
+    flex: 1; 
+    background: transparent; 
+    padding: 8px; 
+    color: #fff; 
+    outline: none; 
+}
+
+.fake-upload-input button { 
+    background: #ddd; 
+    border: none; 
+    padding: 0 10px; 
+    font-weight: bold; 
+    cursor: pointer; 
+}
+
+/* BOTÃO FINALIZAR */
+.btn-finalizar {
     display: block;
     width: 100%;
-    padding: 15px;
-    margin-top: 20px;
-    background-color: #6c63ff;
-    color: white;
-    border: 4px solid #000;
-    font-family: 'Courier New', monospace;
-    font-size: 1.2rem;
+    background: transparent;
+    border: 2px solid #2121ff;
+    color: #fff;
+    padding: 12px;
+    border-radius: 20px;
     font-weight: bold;
-    text-transform: uppercase;
     cursor: pointer;
-    box-shadow: 4px 4px 0px #000;
-    transition: transform 0.1s, box-shadow 0.1s;
-}
-
-.btn-pixel:active {
-    transform: translate(2px, 2px);
-    box-shadow: 2px 2px 0px #000;
-}
-
-.btn-pixel:hover {
-    background-color: #5a52d5;
-}
-
-@media (max-width: 480px) {
-    .row {
-        flex-direction: column;
-        gap: 0;
-    }
+    margin-top: 20px;
 }

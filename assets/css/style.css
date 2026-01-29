@@ -18,6 +18,13 @@
   --font-base: 'Ari W9500', system-ui, sans-serif;
   --font-size-base: 16px;
   --line-height-base: 1.4;
+  /* Cores */
+  --color-red: #FE0000;      
+  --color-pink: #FFB9DE;   
+  --color-blue-green: #00FFDF;     
+  --color-purple: #D3A4FF;  
+  --color-green: #3FFE00;
+  --color-blue: #1584C9;
 }
 
 body {
@@ -87,13 +94,14 @@ font-size: clamp(0.9rem, 2.5vw, 1.8rem);
     box-shadow 0.2s ease,
     background 0.2s ease;
   cursor: pointer;
+  --hover-color: #00f7ff; /* fallback */
 }
 .itemTurmas:hover {
   transform: translateY(-6px) scale(1.02);
   background: rgba(255, 255, 255, 0.05);
   box-shadow:
-    0 0 8px #00f7ff,
-    0 0 16px #00f7ff,
+    0 0 8px var(--hover-color),
+    0 0 16px var(--hover-color),
     inset 0 0 8px rgba(255,255,255,0.1);
 }
 .apelidoItemTurmas{
@@ -105,6 +113,10 @@ font-size: clamp(0.9rem, 2.5vw, 1.8rem);
   width: clamp(45px, 8vw, 80px);
   height: clamp(45px, 8vw, 80px);
 }
+.formando{
+    width: clamp(60px, 8vw, 90px);
+    height: clamp(70px, 8vw, 90px);
+  }
 #logoForms{
   width: clamp(300px, 15vw, 500px);
 }
@@ -113,4 +125,135 @@ font-size: clamp(0.9rem, 2.5vw, 1.8rem);
   text-align: center;
   display: flex;
   align-items: center;
+}
+
+.red{
+  color: var(--color-red);
+  --hover-color: var(--color-red);
+}
+.pink{
+  color: var(--color-pink);
+  --hover-color: var(--color-pink);
+}
+.blue-green{
+  color: var(--color-blue-green);
+  --hover-color: var(--color-blue-green);
+}
+.purple{
+  color: var(--color-purple);
+  --hover-color: var(--color-purple);
+}
+.green{
+  color: var(--color-green);
+  --hover-color: var(--color-green);
+}
+.blue{
+  color: var(--color-blue);
+  --hover-color: var(--color-blue);
+}
+
+
+@keyframes ghostFloat {
+  0%   { transform: translateY(0); }
+  50%  { transform: translateY(-6px); }
+  100% { transform: translateY(0); }
+}
+.ghostTurma {
+  animation: ghostFloat 2s ease-in-out infinite;
+}
+
+.fotterPacMan{
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  margin-top: clamp(15px, 5vw, 30px);
+}
+.fotterPacMan img{
+  width: clamp(200px, 15vw, 400px);
+  align-self: center;
+}
+.redes{
+  display: flex;
+  justify-content: center;
+  gap: clamp(10px, 5vw, 20px);
+  margin-top: clamp(10px, 3vw, 20px);
+}
+.redes a{
+  color: #FFFFFF;
+  font-size: clamp(10px, 5vw, 20px);
+  transition: color 0.3s;
+}
+.redes a:hover{
+  color: var(--color-red)
+}
+/* Fundo Preto que cobre tudo */
+#transitionOverlay {
+  position: fixed;
+  inset: 0;
+  background-color: black;
+  z-index: 9999;
+  display: none; /* Escondido por padrão */
+}
+
+#transitionOverlay.active {
+  display: block;
+}
+
+/* Container das Pedras (Pellets) */
+#pellets {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%; /* Largura total da tela */
+  transform: translateY(-50%);
+  display: flex;
+  justify-content: space-evenly; /* Distribui as pedras igualmente */
+  padding: 0 5vw; /* Margem de segurança nas laterais */
+  z-index: 10000;
+}
+
+/* A pedra individual */
+.pellet {
+  width: 12px;
+  height: 12px;
+  background: #fff;
+  border-radius: 50%;
+  opacity: 1;
+}
+
+/* Animação para a pedra sumir (pop) */
+@keyframes eatPellet {
+  0% { opacity: 1; }
+  99% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+/* Classe ativada pelo JS */
+.pellet.eaten {
+  /* O tempo de duração é controlado pelo JS, aqui é só a definição */
+  animation-name: eatPellet;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+}
+
+/* O Pac-Man */
+#pacmanTransition {
+  position: absolute;
+  top: 50%;
+  left: -150px; /* Começa fora da tela */
+  transform: translateY(-50%);
+  width: clamp(60px, 15vw, 120px);
+  z-index: 10001; /* Fica por cima das pedras */
+  display: none;
+}
+
+/* Animação do movimento do Pacman */
+@keyframes pacmanRun {
+  0% { left: -150px; }
+  100% { left: 110vw; } /* Vai até sair da tela */
+}
+
+.pacman-running {
+  display: block !important;
+  animation: pacmanRun 2s linear forwards;
 }

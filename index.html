@@ -1,74 +1,104 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Caça-Calouro</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <link rel="stylesheet" href="assets/css/style.css">
 
 </head>
+
 <body>
-    <div class="introTurmas">
-      <img src="./assets/img/titulo.png" alt="" id="logoForms">
-      <div class="selectionTurmas">
-        <div class="headerSelection">
-          <h1 class="title">Apelido</h1>
-          <h1 class="title">/</h1>
-          <h1 class="title">Ano de Ingresso</h1>
+  <div class="introTurmas">
+    <img src="./assets/img/titulo.png" alt="" id="logoForms">
+    <div class="selectionTurmas">
+      <div class="headerSelection">
+        <h1 class="title">Apelido</h1>
+        <h1 class="title">/</h1>
+        <h1 class="title">Ano de Ingresso</h1>
+      </div>
+      <div class="listTurmas">
+        <div class="itemTurmas red" data-form="calouros">
+          <div class="apelidoItemTurmas">
+            <img src="./assets/img/calouro.png" alt="" class="ghostTurma">
+            <h2 class="apelidoTurma red">- Calouros</h2>
+          </div>
+          <h2 class="anoIngresso red">2026</h2>
         </div>
-        <div class="listTurmas">
-          <div class="itemTurmas">
-            <div class="apelidoItemTurmas">
-              <img src="./assets/img/image 35.png" alt="" class="ghostTurma">
-              <h2 class="apelidoTurma">- Calouros</h2>
-            </div>
-            <h2 class="anoIngresso">2026</h2>
+        <div class="itemTurmas pink" data-form="veteranos2025">
+          <div class="apelidoItemTurmas">
+            <img src="./assets/img/2025.png" alt="" class="ghostTurma">
+            <h2 class="apelidoTurma pink">- Veteranos</h2>
           </div>
-          <div class="itemTurmas">
-            <div class="apelidoItemTurmas">
-              <img src="./assets/img/image 36.png" alt="" class="ghostTurma">
-              <h2 class="apelidoTurma">- Veteranos</h2>
-            </div>
-            <h2 class="anoIngresso">2025</h2>
-          </div>
-          <div class="itemTurmas">
-            <div class="apelidoItemTurmas">
-              <img src="./assets/img/image 37.png" alt="" class="ghostTurma">
-              <h2 class="apelidoTurma">- Veteranos 2º</h2>
-            </div>
-            <h2 class="anoIngresso">2024</h2>
-          </div>
-          <div class="itemTurmas">
-            <div class="apelidoItemTurmas">
-              <img src="./assets/img/image 38.png" alt="" class="ghostTurma">
-              <h2 class="apelidoTurma">- Veteranos 3º</h2>
-            </div>
-            <h2 class="anoIngresso">2023</h2>
-          </div>
-          <div class="itemTurmas">
-            <div class="apelidoItemTurmas">
-              <img src="./assets/img/Group 15556.png" alt="" class="ghostTurma">
-              <h2 class="apelidoTurma">- Formandos</h2>
-            </div>
-            <h2 class="anoIngresso"> 2022 </h2>
-          </div>
-          <div class="itemTurmas">
-            <div class="apelidoItemTurmas">
-              <img src="./assets/img/dino.png" alt="" class="ghostTurma">
-              <h2 class="apelidoTurma">- Dinossauros</h2>
-            </div>
-            <h2 class="anoIngresso"> <=2021 </h2>
-          </div>
+          <h2 class="anoIngresso pink">2025</h2>
         </div>
-        <div class="fotterPacMan">
-          <img id="gif" src="./assets/gif/pacman.gif">
-          <img src="./assets/img/Logo.png" alt="" class="caccp">
+        <div class="itemTurmas blue-green" data-form="veteranos2024">
+          <div class="apelidoItemTurmas">
+            <img src="./assets/img/2024.png" alt="" class="ghostTurma">
+            <h2 class="apelidoTurma blue-green">- Veteranos 2º</h2>
+          </div>
+          <h2 class="anoIngresso blue-green">2024</h2>
+        </div>
+        <div class="itemTurmas purple" data-form="veteranos2023">
+          <div class="apelidoItemTurmas">
+            <img src="./assets/img/2023.png" alt="" class="ghostTurma">
+            <h2 class="apelidoTurma purple">- Veteranos 3º</h2>
+          </div>
+          <h2 class="anoIngresso purple">2023</h2>
+        </div>
+        <div class="itemTurmas green" data-form="formandos">
+          <div class="apelidoItemTurmas">
+            <img src="./assets/img/formando.png" alt="" class="formando ghostTurma">
+            <h2 class="apelidoTurma green">- Formandos</h2>
+          </div>
+          <h2 class="anoIngresso green"> 2022 </h2>
+        </div>
+        <div class="itemTurmas blue" data-form="dinossauros">
+          <div class="apelidoItemTurmas">
+            <img src="./assets/img/dino.png" alt="" class="ghostTurma">
+            <h2 class="apelidoTurma blue">- Dinossauros</h2>
+          </div>
+          <h2 class="anoIngresso blue">
+            <= 2021 </h2>
         </div>
       </div>
-    </div>
 
-    <div class="formsCalouro">
-      
+      <div class="fotterPacMan">
+              <img src="./assets/img/Logo.png" alt="" class="caccp">
+
+        <!-- Ícones das Redes Sociais -->
+        <div class="redes">
+          <div class="insta">
+            <a href="https://www.instagram.com/caccp.ufv/" target="_blank">
+              <i class="fa-brands fa-instagram"></i>
+            </a>
+          </div>
+          <div class="github">
+            <a href="https://github.com/caccpufv" target="_blank" rel="noopener noreferrer">
+              <i class="fa-brands fa-github"></i>
+            </a>
+          </div>
+          <div class="info">
+            <a href="https://caccpufv.github.io/caccp/" target="_blank" rel="noopener noreferrer">
+              <i class="fa-solid fa-globe"></i> <!-- Ícone de Globo para site -->
+            </a>
+          </div>
+          <div class="linkedin">
+            <a href="https://www.linkedin.com/company/caccp-ufv/posts/?feedView=all" target="_blank" rel="noopener noreferrer">
+              <i class="fa-brands fa-linkedin"></i>
+            </a>
+          </div>
+        </div>
     </div>
+  </div>
+  </div>
+  <div id="transitionOverlay">
+    <img id="pacmanTransition" src="./assets/img/pacman.png" alt="Pacman">
+    <div id="pellets"></div>
+  </div>
+  <script src="assets/js/tipoForm.js"></script>
 </body>
+
 </html>

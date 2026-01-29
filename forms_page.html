@@ -125,7 +125,9 @@
                 <div id="export-instagram" style="position: absolute;"></div>
                 <div id="export-twitter" style="position: absolute;"></div>
                 <div id="export-hobbies" style="position: absolute;"></div>
+                <img id="export-happy" src="" style="position: absolute; display: none; object-fit: cover;">
                 <div id="export-musica" style="position: absolute;"></div>
+                <img id="export-musica-capa" src="" crossorigin="anonymous" style="position: absolute; display: none;">
             </div>
         </div>
 
@@ -135,12 +137,28 @@
             <img src="assets/img/Logo.png" alt="CACCP">
         </footer>
     </main>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.js"></script>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
 
     <script src="assets/js/upload.js"></script>
     <script src="assets/js/exportCard.js"></script>
     <script src="assets/js/carregarAlbum.js"></script>
+
+    <!-- Modal de Cropper de Imagem -->
+    <div id="modal-cropper" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.9); z-index:9999; flex-direction:column; align-items:center; justify-content:center;">
+    <div style="width:90%; max-width:500px; background:#1a1a1a; padding:20px; border-radius:15px;">
+        <div style="height: 400px; width: 100%;">
+            <img id="image-to-crop" style="max-width: 100%;">
+        </div>
+        <div style="margin-top:20px; display:flex; justify-content:space-between;">
+            <button id="btn-cancelar-corte" style="background:#444; color:white; border:none; padding:10px 20px; border-radius:5px; cursor:pointer;">Cancelar</button>
+            <button id="btn-confirmar-corte" style="background:#2121ff; color:white; border:none; padding:10px 20px; border-radius:5px; cursor:pointer;">Cortar e Salvar</button>
+        </div>
+    </div>
+</div>
 </body>
 
 </html>

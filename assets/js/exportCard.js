@@ -180,26 +180,33 @@ const exportCard = async () => {
     await new Promise(r => setTimeout(r, 100));
 
     html2canvas(target, {
-        scale: 2,
+        scale: 2, 
         useCORS: true, 
         allowTaint: false, 
-        logging: true,
+        logging: false,
         backgroundColor: "#000000",
         imageTimeout: 15000 
     }).then(canvas => {
         try {
             canvas.toBlob(async (blob) => {
                 if (!blob) throw new Error("Falha ao criar Blob.");
-                
-                // Salva no celular (inicia o download)
+
                 const fileName = `card-${nome.toLowerCase().replace(/\s+/g, '-')}.png`;
+
+                btnFinalizar.innerText = "FINALIZANDO...";
+
+                // Iniciamos o envio para o Discord IMEDIATAMENTE, sem esperar o saveAs
+                const promessaEnvio = enviarParaDiscord(blob, fileName);
+
+                // Iniciamos o Download para o usuário IMEDIATAMENTE
                 saveAs(blob, fileName);
 
-                // Espera o envio para o Discord
-                await enviarParaDiscord(blob, fileName);
+                // Agora esperamos o envio terminar antes de liberar o botão.
+                await promessaEnvio;
 
                 btnFinalizar.innerText = "FINALIZAR CARD";
                 btnFinalizar.disabled = false;
+
             }, 'image/png');
         } catch (e) {
             btnFinalizar.innerText = "ERRO";

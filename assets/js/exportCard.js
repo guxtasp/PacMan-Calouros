@@ -168,6 +168,7 @@ const exportCard = async () => {
 
     // AJUSTES DE FONTE
     ajustarFonte('export-nome', 53);
+    ajustarFontesEmGrupo(['export-idade', 'export-pronome'], 53);
     ajustarFontesEmGrupo(['export-instagram', 'export-twitter', 'export-sexualidade','export-rel'], 33);
     ajustarFonte('export-musica', 12);
 

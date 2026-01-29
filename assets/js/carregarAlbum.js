@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             timeoutToken = setTimeout(() => {
                 buscarMusica(termo);
-            }, 00);
+            }, 1000);
         });
     }
 

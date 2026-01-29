@@ -260,3 +260,281 @@ body {
     background-color: #1616aa !important;
     border-color: #2121ff !important;
 }
+
+@font-face {
+    font-family: 'Ari W9500';
+    src: url('../fonts/ari-w9500.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+}
+
+.figma-template {
+    width: 1080px;
+    height: 1920px;
+    background-image: url('../img/fundoCalouro.png');
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    background-repeat: no-repeat;
+}
+
+#export-nome { 
+    position: absolute;
+    top: 896px; 
+    left: 240px; 
+
+    width: 601px; 
+    height: 60px; 
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    line-height: 1;
+
+    display: flex;
+    justify-content: center; /* Centraliza horizontalmente */
+    align-items: center;     /* Centraliza verticalmente */
+    
+    text-align: center;
+    font-family: 'Ari W9500';
+    font-size: 53px;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: #000000;
+
+
+    overflow: hidden; 
+    white-space: nowrap;
+}
+
+#export-idade { 
+    position: absolute;
+    top: 960px; 
+    left: 240px; 
+
+    width: 300px; 
+    height: 60px; 
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    line-height: 1;
+
+    display: flex;
+    justify-content: center; /* Centraliza horizontalmente */
+    align-items: center;     /* Centraliza verticalmente */
+    
+    text-align: center;
+    font-family: 'Ari W9500';
+    font-size: 53px;
+    font-weight: regular;
+    text-transform: uppercase;
+    color: #000000;
+
+
+    overflow: hidden; 
+    white-space: nowrap;
+}
+
+#export-pronome { 
+    position: absolute;
+    top: 960px; 
+    left: 540px; 
+
+    width: 300px; 
+    height: 60px; 
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    line-height: 1;
+
+    display: flex;
+    justify-content: center; /* Centraliza horizontalmente */
+    align-items: center;     /* Centraliza verticalmente */
+    
+    text-align: center;
+    font-family: 'Ari W9500';
+    font-size: 53px;
+    font-weight: regular;
+    text-transform: uppercase;
+    color: #000000;
+
+    overflow: hidden; 
+    white-space: nowrap;
+}
+
+#export-cidade { 
+    position: absolute;
+    top: 1020px; 
+    left: 240px; 
+
+    width: 601px; 
+    height: 60px; 
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    line-height: 1;
+
+    display: flex;
+    justify-content: center; /* Centraliza horizontalmente */
+    align-items: center;     /* Centraliza verticalmente */
+    
+    text-align: center;
+    font-family: 'Ari W9500';
+    font-size: 53px;
+    font-weight: regular;
+    text-transform: uppercase;
+    color: #000000;
+
+
+    overflow: hidden; 
+    white-space: nowrap;
+}
+
+#export-instagram { 
+    position: absolute;
+    top: 1182px; 
+    left: 230px; 
+
+    width: 230px; 
+    height: 60px; 
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    line-height: 1;
+
+    display: flex;
+    justify-content: left; /* Centraliza horizontalmente */
+    align-items: center;     /* Centraliza verticalmente */
+    
+    text-align: left;
+    font-family: 'Ari W9500';
+    font-size: 33px;
+    font-weight: regular;
+    text-transform: uppercase;
+    color: #FFFFFF;
+
+    overflow: hidden; 
+    white-space: nowrap;
+}
+
+#export-twitter { 
+    position: absolute;
+    top: 1250px; 
+    left: 230px; 
+
+    width: 230px; 
+    height: 60px; 
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    line-height: 1;
+
+    display: flex;
+    justify-content: left; /* Centraliza horizontalmente */
+    align-items: center;     /* Centraliza verticalmente */
+    
+    text-align: left;
+    font-family: 'Ari W9500';
+    font-size: 33px;
+    font-weight: regular;
+    text-transform: uppercase;
+    color: #FFFFFF;
+
+
+    overflow: hidden; 
+    white-space: nowrap;
+}
+
+#export-sexualidade { 
+    position: absolute;
+    top: 1182px; 
+    left: 480px; 
+
+    width: 230px; 
+    height: 60px; 
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    line-height: 1;
+
+    display: flex;
+    justify-content: left; /* Centraliza horizontalmente */
+    align-items: center;     /* Centraliza verticalmente */
+    
+    text-align: left;
+    font-family: 'Ari W9500';
+    font-size: 33px;
+    font-weight: regular;
+    text-transform: uppercase;
+    color: #FFFFFF;
+
+    overflow: hidden; 
+    white-space: nowrap;
+}
+
+#export-rel { 
+    position: absolute;
+    top: 1250px; 
+    left: 480px; 
+
+    width: 230px; 
+    height: 60px; 
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    line-height: 1;
+
+    display: flex;
+    justify-content: left; /* Centraliza horizontalmente */
+    align-items: center;     /* Centraliza verticalmente */
+    
+    text-align: left;
+    font-family: 'Ari W9500';
+    font-size: 33px;
+    font-weight: regular;
+    text-transform: uppercase;
+    color: #FFFFFF;
+
+    overflow: hidden; 
+    white-space: nowrap;
+}
+
+#export-hobbies { 
+    position: absolute;
+    top: 1415px; 
+    left: 545px; 
+
+    width: 330px; 
+    height: 230px; 
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    line-height: 1.2;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; 
+    align-items: stretch;
+    
+    text-align: justify; 
+    
+    font-family: 'Ari W9500';
+    font-size: 21px;
+    font-weight: regular;
+    text-transform: uppercase;
+    color: #000000;
+
+    overflow: hidden; 
+    white-space: normal;     
+    word-break: break-word;
+
+    hyphens: auto;
+}

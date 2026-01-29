@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (termo.length < 3) return;
 
-            // Feedback visual: Limpa e mostra que está vivo
+            // Feedback visual
             if(txtTrack) txtTrack.innerText = "Buscando...";
             if(txtArtist) txtArtist.innerText = "";
             previewContainer.style.display = 'flex';
@@ -37,15 +37,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
     async function buscarMusica(termo) {
         try {
-            // Limpeza do termo e foco no BRASIL
             const termoLimpo = termo.replace(/-/g, ' ').replace(/\s+/g, ' ');
-            // removemos &lang=pt_br pois as vezes buga o retorno JSON, deixamos só country=BR
-            const url = `https://itunes.apple.com/search?term=${encodeURIComponent(termoLimpo)}&entity=song&limit=1&media=music&country=BR`;
             
-            // Faz a busca simples (sem headers complexos que o iOS odeia)
-            const response = await fetch(url);
+            // Adicionado timestamp (&_=${Date.now()}) para evitar cache de erro no iOS
+            const url = `https://itunes.apple.com/search?term=${encodeURIComponent(termoLimpo)}&entity=song&limit=1&media=music&country=BR&_=${Date.now()}`;
             
-            if (!response.ok) throw new Error("Erro de rede Apple");
+            // Fetch explícito como GET e CORS
+            const response = await fetch(url, {
+                method: 'GET',
+                mode: 'cors'
+            });
+            
+            if (!response.ok) throw new Error(`Erro API: ${response.status}`);
             
             const data = await response.json();
 
@@ -53,81 +56,64 @@ document.addEventListener('DOMContentLoaded', () => {
                 const musica = data.results[0];
                 const capaAlta = musica.artworkUrl100.replace('100x100bb', '600x600bb');
 
-                // --- FASE 1: ATUALIZAÇÃO VISUAL IMEDIATA ---
-                // Não esperamos converter nada. Mostra direto.
+                // ATUALIZAÇÃO VISUAL ---
                 if (imgAlbum) {
+                    imgAlbum.setAttribute('crossOrigin', 'anonymous');
                     imgAlbum.src = capaAlta;
                     imgAlbum.style.opacity = "1";
-                    // Crossorigin ajuda, mas se falhar, a imagem carrega igual
-                    imgAlbum.setAttribute('crossOrigin', 'anonymous');
                 }
                 if (txtTrack) txtTrack.innerText = musica.trackName;
                 if (txtArtist) txtArtist.innerText = musica.artistName;
                 previewContainer.style.display = 'flex';
 
-                // Salva dados básicos (URL normal por enquanto)
+                // Salva dados globais
                 window.selectedMusicData = {
                     track: musica.trackName,
                     artist: musica.artistName,
                     cover: capaAlta
                 };
 
-                // --- FASE 2: PREPARAÇÃO PARA EXPORTAÇÃO (TRY/CATCH SILENCIOSO) ---
-                // Tenta preparar a imagem para o print. Se o iPhone bloquear, o usuário nem percebe.
-                try {
-                    atualizarExportacao(musica.trackName, musica.artistName, capaAlta, imgAlbumExport, txtMusicaExport);
-                } catch (errExport) {
-                    console.log("Erro ao preparar exportação (iOS restrito):", errExport);
-                    // Mesmo com erro, preenchemos com a URL normal
-                    if(imgAlbumExport) imgAlbumExport.src = capaAlta;
-                }
+                // Tenta processar a imagem em segundo plano
+                atualizarExportacao(musica.trackName, musica.artistName, capaAlta, imgAlbumExport, txtMusicaExport);
 
             } else {
                 mostrarErro("Música não encontrada");
             }
         } catch (error) {
-            console.error("Erro fatal na busca:", error);
-            // Se o erro for de conexão real, mostramos
-            mostrarErro("Erro de conexão/Busca");
+            console.error("Erro na busca:", error);
+            // Mensagem amigável
+            mostrarErro("Música não localizada");
         }
     }
 
     function mostrarErro(msg) {
         if(txtTrack) txtTrack.innerText = msg;
         if(txtArtist) txtArtist.innerText = "";
-        if(imgAlbum) imgAlbum.src = "";
+        if(imgAlbum && msg !== "Buscando...") imgAlbum.style.opacity = "0.2";
         window.selectedMusicData = null;
     }
 
-    // Função separada para lidar com a conversão da imagem
     async function atualizarExportacao(track, artist, urlImagem, imgExport, txtExport) {
-        // Atualiza texto oculto
         if (txtExport) {
             txtExport.innerHTML = `<strong>${track}</strong><br><span>${artist}</span>`;
         }
 
         if (imgExport) {
-            // Tenta baixar a imagem como BLOB (Binary Large Object)
-            // O iOS as vezes bloqueia isso se não tiver headers certos, mas vale tentar
             try {
-                const response = await fetch(urlImagem);
+                const response = await fetch(urlImagem, { cache: 'no-cache' });
                 const blob = await response.blob();
                 const reader = new FileReader();
                 
                 reader.onloadend = function() {
-                    const base64data = reader.result;
-                    imgExport.src = base64data;
-                    imgExport.style.display = 'block';
-                    
-                    // Atualiza o dado global com a versão Base64 (melhor para exportar)
                     if(window.selectedMusicData) {
-                        window.selectedMusicData.cover = base64data;
+                        window.selectedMusicData.cover = reader.result; // Salva Base64
                     }
+                    imgExport.src = reader.result;
+                    imgExport.style.display = 'block';
                 }
                 reader.readAsDataURL(blob);
             } catch (e) {
-                // Se o fetch da imagem falhar (CORS do iOS), usa a URL normal
-                // O html2canvas pode falhar, mas pelo menos a busca funcionou
+                console.warn("Falha ao converter imagem para base64 (CORS iOS). Usando URL direta.", e);
                 imgExport.src = urlImagem;
                 imgExport.style.display = 'block';
             }

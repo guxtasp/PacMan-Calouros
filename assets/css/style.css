@@ -12,47 +12,10 @@
   font-style: normal;
 }
 
-@font-face {
-  font-family: 'Ari W9500';
-  src: url('../fonts/ari-w9500-bold.ttf') format('truetype');
-  font-weight: 700;
-  font-style: normal;
-}
-
-/* Display */
-@font-face {
-  font-family: 'Ari W9500 Display';
-  src: url('../fonts/ari-w9500-display.ttf') format('truetype');
-  font-weight: 400;
-}
-
-/* Condensed */
-@font-face {
-  font-family: 'Ari W9500 Condensed';
-  src: url('../fonts/ari-w9500-condensed.ttf') format('truetype');
-  font-weight: 400;
-}
-
-@font-face {
-  font-family: 'Ari W9500 Condensed';
-  src: url('../fonts/ari-w9500-condensed-bold.ttf') format('truetype');
-  font-weight: 700;
-}
-
-/* Condensed Display */
-@font-face {
-  font-family: 'Ari W9500 Condensed Display';
-  src: url('../fonts/ari-w9500-condensed-display.ttf') format('truetype');
-  font-weight: 400;
-}
-
 
 /* Variaveis globais */
 :root {
   --font-base: 'Ari W9500', system-ui, sans-serif;
-  --font-display: 'Ari W9500 Display', 'Ari W9500', sans-serif;
-  --font-condensed: 'Ari W9500 Condensed', 'Ari W9500', sans-serif;
-
   --font-size-base: 16px;
   --line-height-base: 1.4;
 }
@@ -69,7 +32,6 @@ html, body {
 }
 
 h1, h2 {
-  font-family: var(--font-display);
   font-weight: 400;
 }
 

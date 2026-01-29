@@ -1,4 +1,3 @@
-
 const ajustarFonte = (id, tamanhoOriginal) => {
     const el = document.getElementById(id);
     if (!el) return tamanhoOriginal;
@@ -37,17 +36,15 @@ const ajustarFontesEmGrupo = (ids, tamanhoOriginal) => {
 // Função para garantir o @ no início
 const formatarUser = (valor) => {
     const texto = valor.trim();
-    if (texto === "") return ""; // Se estiver vazio, não coloca nada
+    if (texto === "") return ""; 
     return texto.startsWith('@') ? texto : `@${texto}`;
 };
 
-const exportCard = () => {
+// --- MUDANÇA 1: Adicionado 'async' aqui ---
+const exportCard = async () => {
     
     const btnFinalizar = document.getElementById('btn-finalizar-card');
     const target = document.getElementById('canvas-target'); 
-
-    
-
 
     const inputNome = document.getElementById('form-nome');
     const previewFoto = document.getElementById('previewFoto');
@@ -74,10 +71,8 @@ const exportCard = () => {
     }
 
     // --- TRATAMENTO DAS IMAGENS NO CARD ---
-    // Foto Principal
     exportFoto.src = previewFoto.src;
 
-    // Foto do Hobby
     if (window.happyPhotoData && exportHobbyFoto) {
         exportHobbyFoto.src = window.happyPhotoData;
         exportHobbyFoto.style.display = 'block';
@@ -96,7 +91,6 @@ const exportCard = () => {
     const insta = formatarUser(document.getElementById('form-instagram').value);
     const twt = formatarUser(document.getElementById('form-twitter').value);
 
-    // Alimenta o template
     document.getElementById('export-nome').innerText = nome;
     document.getElementById('export-idade').innerText = idadeValor;
     document.getElementById('export-sexualidade').innerText = document.getElementById('form-sexualidade').value;
@@ -107,18 +101,44 @@ const exportCard = () => {
     document.getElementById('export-hobbies').innerText = document.getElementById('form-hobbie').value;
     document.getElementById('export-rel').innerText = document.querySelector('input[name="rel"]:checked')?.value || "";
 
-    // Alimenta o texto da música
     const musicaTexto = window.selectedMusicData 
         ? `${window.selectedMusicData.track} - ${window.selectedMusicData.artist}`
         : document.getElementById('form-musica').value;
 
     document.getElementById('export-musica').innerText = musicaTexto;
 
-    // Alimenta a CAPA da música
+    // --- MUDANÇA 2: Conversão da Capa do Álbum para Base64 ---
     const imgExportCapa = document.getElementById('export-musica-capa');
+    
+    // Mostra feedback no botão enquanto processa a imagem (importante para iPhone)
+    const textoOriginalBtn = btnFinalizar.innerText;
+    btnFinalizar.innerText = "PREPARANDO IMAGEM...";
+    btnFinalizar.disabled = true;
+
     if (window.selectedMusicData && window.selectedMusicData.cover) {
-        imgExportCapa.src = window.selectedMusicData.cover;
-        imgExportCapa.style.display = 'block';
+        try {
+            // Fetch da imagem do iTunes
+            const response = await fetch(window.selectedMusicData.cover);
+            const blob = await response.blob();
+            
+            // Cria um FileReader para converter o Blob em Base64
+            const base64Url = await new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.onloadend = () => resolve(reader.result);
+                reader.onerror = reject;
+                reader.readAsDataURL(blob);
+            });
+
+            // Aplica o Base64 na imagem de exportação
+            imgExportCapa.src = base64Url;
+            imgExportCapa.style.display = 'block';
+
+        } catch (error) {
+            console.error("Erro ao converter capa para Base64:", error);
+            // Fallback: Tenta usar a URL direta se a conversão falhar
+            imgExportCapa.src = window.selectedMusicData.cover;
+            imgExportCapa.style.display = 'block';
+        }
     } else {
         imgExportCapa.style.display = 'none';
     }
@@ -126,18 +146,22 @@ const exportCard = () => {
     // AJUSTES DE FONTE
     ajustarFonte('export-nome', 53);
     ajustarFontesEmGrupo(['export-instagram', 'export-twitter', 'export-sexualidade','export-rel'], 33);
-    ajustarFonte('export-musica', 15);
+    ajustarFonte('export-musica', 12);
 
     // --- PROCESSO DE EXPORTAÇÃO ---
-    btnFinalizar.innerText = "PROCESSANDO...";
-    btnFinalizar.disabled = true;
+    btnFinalizar.innerText = "GERANDO CARD...";
+
+    // Pequeno delay para garantir que o DOM atualizou com o Base64
+    await new Promise(r => setTimeout(r, 100));
 
     html2canvas(target, {
         scale: 2,
         useCORS: true, 
-        allowTaint: false,
+        allowTaint: false, // Importante manter false
         logging: true,
-        backgroundColor: "#000000"
+        backgroundColor: "#000000",
+        // Adicione isso para garantir que imagens carreguem
+        imageTimeout: 15000 
     }).then(canvas => {
         try {
             canvas.toBlob((blob) => {
@@ -149,7 +173,7 @@ const exportCard = () => {
             }, 'image/png');
         } catch (e) {
             console.error("Erro no Blob:", e);
-            btnFinalizar.innerText = "ERRO NO BLOB";
+            btnFinalizar.innerText = "ERRO";
             btnFinalizar.disabled = false;
         }
     }).catch(err => {

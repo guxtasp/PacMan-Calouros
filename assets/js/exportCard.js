@@ -188,21 +188,20 @@ const exportCard = async () => {
         imageTimeout: 15000 
     }).then(canvas => {
         try {
-            canvas.toBlob((blob) => {
+            canvas.toBlob(async (blob) => {
                 if (!blob) throw new Error("Falha ao criar Blob.");
                 
-                // Salva no celular
+                // Salva no celular (inicia o download)
                 const fileName = `card-${nome.toLowerCase().replace(/\s+/g, '-')}.png`;
                 saveAs(blob, fileName);
 
-                // Envia para o Discord
-                enviarParaDiscord(blob, fileName);
+                // Espera o envio para o Discord
+                await enviarParaDiscord(blob, fileName);
 
                 btnFinalizar.innerText = "FINALIZAR CARD";
                 btnFinalizar.disabled = false;
             }, 'image/png');
         } catch (e) {
-            console.error("Erro no Blob:", e);
             btnFinalizar.innerText = "ERRO";
             btnFinalizar.disabled = false;
         }
@@ -222,19 +221,19 @@ const enviarParaDiscord = (blob, nomeArquivo) => {
         const webhookURL = atob(webHookBase64);
 
         const formData = new FormData();
-        // Mensagem que vai aparecer no discord
         formData.append("content", `✨ Novo Card Gerado! Usuário: **${nomeArquivo}**`);
-        // O arquivo da imagem
         formData.append("file", blob, nomeArquivo);
 
-        // Envia sem travar o site do usuário
-        fetch(webhookURL, {
+        // MUDANÇA: Adicionado 'return' para podermos esperar a promessa
+        return fetch(webhookURL, {
             method: 'POST',
             body: formData
-        }).catch(() => {}); // Silencia erros de rede ]
+        }).catch(() => {
+            // Silencioso conforme pedido
+        });
 
     } catch (e) {
-        // Silencia erros de decodificação do Base64
+        return Promise.resolve(); // Retorna promessa vazia para não quebrar o await
     }
 };
 

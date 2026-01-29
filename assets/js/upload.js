@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (cropper) cropper.destroy();
 
             cropper = new Cropper(image, {
-                aspectRatio: target === 'perfil' ? 1 : 220 / 283,
+                aspectRatio: target === 'perfil' ? 245 / 315 : 220 / 283, 
                 viewMode: 1,
                 autoCropArea: 1,
             });
@@ -49,8 +49,8 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     document.getElementById('btn-confirmar-corte').addEventListener('click', () => {
-        const largura = currentTarget === 'perfil' ? 800 : 440; 
-        const altura = currentTarget === 'perfil' ? 800 : 566;
+        const largura = currentTarget === 'perfil' ? 735 : 440; 
+        const altura = currentTarget === 'perfil' ? 945 : 566;
 
         const canvas = cropper.getCroppedCanvas({ width: largura, height: altura });
         const dataURL = canvas.toDataURL('image/png');

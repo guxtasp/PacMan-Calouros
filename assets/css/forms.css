@@ -300,9 +300,9 @@ body {
 }
 #export-foto { 
     position: absolute;
-    top: 467px;  /* Ajuste conforme seu Figma */
-    left: 415px;  /* Ajuste conforme seu Figma */
-    width: 245px; /* Tamanho da capa no card */
+    top: 457px;  
+    left: 415px;  
+    width: 245px;
     height: 315px;
     object-fit: cover;
     display: block !important; /* Garante que apareça no export */
@@ -548,26 +548,23 @@ body {
     margin: 0 !important;
     padding: 0 !important;
 
-    line-height: 1.2;
+    line-height: 1.3;
 
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start; 
-    align-items: stretch;
+    display: block !important;
     
-    text-align: justify; 
+    text-align: left; 
     
     font-family: 'Ari W9500';
     font-size: 21px;
-    font-weight: regular;
+    font-weight: normal;
     text-transform: uppercase;
     color: #000000;
 
     overflow: hidden; 
-    white-space: normal;     
-    word-break: break-word;
-
-    hyphens: auto;
+    white-space: normal !important; 
+    word-wrap: break-word;          
+    overflow-wrap: break-word;      
+    hyphens: none; 
 }
 
 #export-happy { 

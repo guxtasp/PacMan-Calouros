@@ -117,6 +117,13 @@ const exportCard = async () => {
     document.getElementById('export-hobbies').innerText = document.getElementById('form-hobbie').value;
     document.getElementById('export-rel').innerText = document.querySelector('input[name="rel"]:checked')?.value || "";
 
+    // Adiciona "HOBBIE: " antes do texto
+    const hobbieValor = document.getElementById('form-hobbie').value;
+    // Se tiver texto, coloca "HOBBIE: texto". Se estiver vazio, deixa vazio.
+    document.getElementById('export-hobbies').innerText = hobbieValor.trim() ? "HOBBIE: " + hobbieValor : "";
+
+    document.getElementById('export-rel').innerText = document.querySelector('input[name="rel"]:checked')?.value || "";
+
     const musicaTexto = window.selectedMusicData 
         ? `${window.selectedMusicData.track} - ${window.selectedMusicData.artist}`
         : document.getElementById('form-musica').value;

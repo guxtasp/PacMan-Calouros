@@ -75,7 +75,8 @@ document.addEventListener('DOMContentLoaded', () => {
         // 4. Redirecionamento após o fim da animação
         setTimeout(() => {
             // Redireciona para o arquivo HTML correspondente
-            window.location.href = `${destino}.html`;
+            // Envia para o formulário único carregando o "tipo" na URL
+        window.location.href = `forms_page.html?tipo=${destino}`;
 
         }, ANIMATION_DURATION + 200); // Espera a animação terminar
     }

@@ -42,8 +42,12 @@ const formatarUser = (valor) => {
 };
 
 const exportCard = () => {
+    
     const btnFinalizar = document.getElementById('btn-finalizar-card');
-    const target = document.getElementById('canvas-target');
+    const target = document.getElementById('canvas-target'); 
+
+    
+
 
     if (!target) {
         alert("Erro: Alvo da exportação não encontrado.");
@@ -74,6 +78,22 @@ const exportCard = () => {
     document.getElementById('export-hobbies').innerText = document.getElementById('form-hobbie').value;
     document.getElementById('export-musica').innerText = document.getElementById('form-musica').value;
     document.getElementById('export-rel').innerText = document.querySelector('input[name="rel"]:checked')?.value || "";
+
+    const relInput = document.querySelector('input[name="rel"]:checked');
+    const relValue = relInput ? relInput.value : "";
+    let relHTML = relValue; // Começa só com o texto
+    
+    // Adiciona o ícone dependendo do valor
+    // style="margin-right: 15px" dá um espaço entre ícone e texto
+    if (relValue.includes("Solteiro")) {
+        relHTML = `<i class="fa-solid fa-hand-peace" style="margin-right: 15px;"></i> ${relValue}`;
+    } else if (relValue.includes("Namorando")) {
+        relHTML = `<i class="fa-solid fa-heart" style="margin-right: 15px;"></i> ${relValue}`;
+    } else if (relValue.includes("Enrolado")) {
+        relHTML = `<i class="fa-solid fa-spinner" style="margin-right: 15px;"></i> ${relValue}`;
+    }
+
+    document.getElementById('export-rel').innerHTML = relHTML;
 
     // AJUSTES DE FONTE
     ajustarFonte('export-nome', 53);

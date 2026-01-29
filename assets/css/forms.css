@@ -271,13 +271,33 @@ body {
 .figma-template {
     width: 1080px;
     height: 1920px;
-    background-image: url('../img/fundoCalouro.png');
     background-size: cover;
     background-position: center;
     position: relative;
     background-repeat: no-repeat;
 }
+.bg-calouros {
+    background-image: url('../img/fundoCalouro.png');
+}
 
+.bg-veteranos2025 {
+    background-image: url('../img/fundo2025.png');
+}
+
+.bg-veteranos2024 {
+    background-image: url('../img/fundo2024.png');
+}
+
+.bg-veteranos2023{
+    background-image: url('../img/fundo2023.png');
+}
+
+.bg-formando{
+    background-image: url('../img/fundo2022.png');
+}
+.bg-dinossauros {
+    background-image: url('../img/fundoDINO.png');
+}
 #export-nome { 
     position: absolute;
     top: 896px; 

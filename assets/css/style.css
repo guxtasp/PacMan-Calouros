@@ -31,11 +31,13 @@ body {
   font-family: var(--font-base);
   font-size: 1rem;
   line-height: var(--line-height-base);
-}
+  min-height: 100vh;  
+
 
 html, body {
   overflow-x: hidden;
   width: 100%;
+  height: 100%;
 }
 
 h1, h2 {
@@ -189,11 +191,16 @@ font-size: clamp(0.9rem, 2.5vw, 1.8rem);
 /* Fundo Preto que cobre tudo */
 #transitionOverlay {
   position: fixed;
-  inset: 0;
+  top: 0;
+  left: 0;
+  width: 100vw;   /* toda largura da tela */
+  height: 100vh;  /* toda altura da tela */
   background-color: black;
+  display: none;  /* só aparece no clique */
   z-index: 9999;
-  display: none; /* Escondido por padrão */
+  overflow: hidden;
 }
+
 
 #transitionOverlay.active {
   display: block;

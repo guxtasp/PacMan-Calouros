@@ -1,51 +1,81 @@
+let cropper;
+let currentTarget; 
+let tempFileName = ""; // Variável para armazenar o nome do arquivo temporariamente
+window.happyPhotoData = null; 
+
 document.addEventListener('DOMContentLoaded', () => {
-    // --- LÓGICA PARA FOTO DE PERFIL ---
     const inputFoto = document.getElementById('inputFoto');
     const dropZone = document.getElementById('dropZone');
     const previewFoto = document.getElementById('previewFoto');
     const placeholder = document.getElementById('uploadPlaceholder');
-
-    if (dropZone && inputFoto) {
-        dropZone.addEventListener('click', () => inputFoto.click());
-
-        inputFoto.addEventListener('change', function() {
-            const arquivo = this.files[0];
-            if (arquivo) {
-                const leitor = new FileReader();
-                leitor.onload = (e) => {
-                    previewFoto.src = e.target.result;
-                    previewFoto.style.display = 'block';
-                    placeholder.style.display = 'none';
-                };
-                leitor.readAsDataURL(arquivo);
-            }
-        });
-    }
-
-    // --- LÓGICA PARA UPLOAD DE HOBBY---
     const btnHobby = document.querySelector('.upload-input button');
-const inputHobbyFile = document.createElement('input'); 
-inputHobbyFile.type = 'file';
-inputHobbyFile.accept = 'image/*';
 
-if (btnHobby) {
-    btnHobby.addEventListener('click', () => inputHobbyFile.click());
+    const inputHobbyFile = document.createElement('input');
+    inputHobbyFile.type = 'file';
+    inputHobbyFile.accept = 'image/*';
+
+    const iniciarCorte = (arquivo, target) => {
+        currentTarget = target;
+        tempFileName = arquivo.name; // Guarda o nome do arquivo aqui
+        
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            const modal = document.getElementById('modal-cropper');
+            const image = document.getElementById('image-to-crop');
+            
+            image.src = e.target.result;
+            modal.style.display = 'flex';
+
+            if (cropper) cropper.destroy();
+
+            cropper = new Cropper(image, {
+                aspectRatio: target === 'perfil' ? 1 : 220 / 283,
+                viewMode: 1,
+                autoCropArea: 1,
+            });
+        };
+        reader.readAsDataURL(arquivo);
+    };
+
+    if (dropZone) dropZone.addEventListener('click', () => inputFoto.click());
+    if (btnHobby) btnHobby.addEventListener('click', () => inputHobbyFile.click());
+
+    inputFoto.addEventListener('change', function() {
+        if (this.files[0]) iniciarCorte(this.files[0], 'perfil');
+    });
 
     inputHobbyFile.addEventListener('change', function() {
-        if (this.files[0]) {
-            // Obtém o nome do arquivo selecionado
-            const nomeArquivo = this.files[0].name;
-            
-            // Exibe o nome (com um limite de caracteres para não quebrar o layout)
-            btnHobby.innerText = nomeArquivo.length > 15 
-                ? nomeArquivo.substring(0, 12) + "..." 
-                : nomeArquivo;
+        if (this.files[0]) iniciarCorte(this.files[0], 'hobby');
+    });
 
-            // Estilização de feedback
+    document.getElementById('btn-confirmar-corte').addEventListener('click', () => {
+        const largura = currentTarget === 'perfil' ? 800 : 440; 
+        const altura = currentTarget === 'perfil' ? 800 : 566;
+
+        const canvas = cropper.getCroppedCanvas({ width: largura, height: altura });
+        const dataURL = canvas.toDataURL('image/png');
+
+        if (currentTarget === 'perfil') {
+            previewFoto.src = dataURL;
+            previewFoto.style.display = 'block';
+            placeholder.style.display = 'none';
+        } else {
+            window.happyPhotoData = dataURL;
+            
+            // Lógica para exibir o nome do arquivo no botão
+            btnHobby.innerText = tempFileName.length > 15 
+                ? tempFileName.substring(0, 12) + "..." 
+                : tempFileName;
+                
             btnHobby.style.backgroundColor = "#2121ff";
             btnHobby.style.color = "#fff";
-            btnHobby.style.border = "1px solid #fff";
         }
+
+        document.getElementById('modal-cropper').style.display = 'none';
     });
-}
+
+    document.getElementById('btn-cancelar-corte').addEventListener('click', () => {
+        document.getElementById('modal-cropper').style.display = 'none';
+        if (cropper) cropper.destroy();
+    });
 });

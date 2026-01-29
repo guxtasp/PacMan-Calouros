@@ -298,6 +298,17 @@ body {
 .bg-dinossauros {
     background-image: url('../img/fundoDINO.png');
 }
+#export-foto { 
+    position: absolute;
+    top: 467px;  /* Ajuste conforme seu Figma */
+    left: 415px;  /* Ajuste conforme seu Figma */
+    width: 245px; /* Tamanho da capa no card */
+    height: 315px;
+    object-fit: cover;
+    display: block !important; /* Garante que apareça no export */
+
+}
+
 #export-nome { 
     position: absolute;
     top: 896px; 
@@ -557,6 +568,70 @@ body {
     word-break: break-word;
 
     hyphens: auto;
+}
+
+#export-happy { 
+    position: absolute;
+    top: 1461px;  /* Ajuste conforme seu Figma */
+    left: 245px;  /* Ajuste conforme seu Figma */
+    width: 169px; /* Tamanho da capa no card */
+    height: 218px;
+    object-fit: cover;
+    display: block !important; /* Garante que apareça no export */
+
+    object-fit: cover; 
+    
+    /* Garante que o corte seja centralizado */
+    object-position: center; 
+    
+    /* Evita cores de fundo estranhas se a imagem demorar a carregar */
+    background-color: transparent;
+
+}
+
+#export-musica { 
+    position: absolute;
+    top: 1320px; 
+    left: 730px; 
+
+    width: 156px; 
+    height: 50px; 
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    line-height: 1.2;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; 
+    align-items: stretch;
+    
+    text-align: center; 
+    
+    font-family: 'Ari W9500';
+    font-size: 20px;
+    font-weight: regular;
+    text-transform: uppercase;
+    color: #FFFFFF;
+
+
+    overflow: hidden; 
+    white-space: normal;     
+    word-break: break-word;
+
+    hyphens: auto;
+}
+
+#export-musica-capa { 
+    position: absolute;
+    top: 1150px;  /* Ajuste conforme seu Figma */
+    left: 728px;  /* Ajuste conforme seu Figma */
+    width: 160px; /* Tamanho da capa no card */
+    height: 160px;
+    object-fit: cover;
+    display: block !important; /* Garante que apareça no export */
+
 }
 
 /* Container do Overlay (Tela preta de fundo) */

@@ -49,12 +49,42 @@ const exportCard = () => {
     
 
 
+    const inputNome = document.getElementById('form-nome');
+    const previewFoto = document.getElementById('previewFoto');
+    const exportFoto = document.getElementById('export-foto');
+    const exportHobbyFoto = document.getElementById('export-happy');
+
     if (!target) {
         alert("Erro: Alvo da exportação não encontrado.");
         return;
     }
 
-    const nome = document.getElementById('form-nome').value || "calouro";
+    // Verifica se o nome está vazio
+    if (!inputNome || !inputNome.value.trim()) {
+        alert("Ops! Você esqueceu de colocar o seu NOME.");
+        if(inputNome) inputNome.focus();
+        return;
+    }
+
+    // Verifica se a foto de perfil foi carregada
+    if (!previewFoto || !previewFoto.src || previewFoto.style.display === 'none' || previewFoto.src === "" || window.getComputedStyle(previewFoto).display === "none") {
+        alert("Ei! Você precisa carregar uma FOTO DE PERFIL antes de finalizar.");
+        window.scrollTo({ top: 0, behavior: 'smooth' }); 
+        return;
+    }
+
+    // --- TRATAMENTO DAS IMAGENS NO CARD ---
+    // Foto Principal
+    exportFoto.src = previewFoto.src;
+
+    // Foto do Hobby
+    if (window.happyPhotoData && exportHobbyFoto) {
+        exportHobbyFoto.src = window.happyPhotoData;
+        exportHobbyFoto.style.display = 'block';
+    }
+
+    // --- COLETA DE DADOS ---
+    const nome = inputNome.value.trim();
     
     let idadeValor = document.getElementById('form-idade').value.trim();
     if (idadeValor !== "") {
@@ -63,7 +93,6 @@ const exportCard = () => {
         }
     }
 
-    // Processa Instagram e Twitter com @
     const insta = formatarUser(document.getElementById('form-instagram').value);
     const twt = formatarUser(document.getElementById('form-twitter').value);
 
@@ -76,31 +105,29 @@ const exportCard = () => {
     document.getElementById('export-instagram').innerText = insta;
     document.getElementById('export-twitter').innerText = twt;
     document.getElementById('export-hobbies').innerText = document.getElementById('form-hobbie').value;
-    document.getElementById('export-musica').innerText = document.getElementById('form-musica').value;
     document.getElementById('export-rel').innerText = document.querySelector('input[name="rel"]:checked')?.value || "";
 
-    const relInput = document.querySelector('input[name="rel"]:checked');
-    const relValue = relInput ? relInput.value : "";
-    let relHTML = relValue; // Começa só com o texto
-    
-    // Adiciona o ícone dependendo do valor
-    // style="margin-right: 15px" dá um espaço entre ícone e texto
-    if (relValue.includes("Solteiro")) {
-        relHTML = `<i class="fa-solid fa-hand-peace" style="margin-right: 15px;"></i> ${relValue}`;
-    } else if (relValue.includes("Namorando")) {
-        relHTML = `<i class="fa-solid fa-heart" style="margin-right: 15px;"></i> ${relValue}`;
-    } else if (relValue.includes("Enrolado")) {
-        relHTML = `<i class="fa-solid fa-spinner" style="margin-right: 15px;"></i> ${relValue}`;
-    }
+    // Alimenta o texto da música
+    const musicaTexto = window.selectedMusicData 
+        ? `${window.selectedMusicData.track} - ${window.selectedMusicData.artist}`
+        : document.getElementById('form-musica').value;
 
-    document.getElementById('export-rel').innerHTML = relHTML;
+    document.getElementById('export-musica').innerText = musicaTexto;
+
+    // Alimenta a CAPA da música
+    const imgExportCapa = document.getElementById('export-musica-capa');
+    if (window.selectedMusicData && window.selectedMusicData.cover) {
+        imgExportCapa.src = window.selectedMusicData.cover;
+        imgExportCapa.style.display = 'block';
+    } else {
+        imgExportCapa.style.display = 'none';
+    }
 
     // AJUSTES DE FONTE
     ajustarFonte('export-nome', 53);
-    
-    // Ajusta o grupo em conjunto
-    ajustarFontesEmGrupo(['export-instagram', 'export-twitter', 'export-sexualidade','export-rel'], 33);
+    ajustarFontesEmGrupo(['export-instagram', 'export-twitter', 'export-sexualidade','export-rel', 'export-musica'], 33);
 
+    // --- PROCESSO DE EXPORTAÇÃO ---
     btnFinalizar.innerText = "PROCESSANDO...";
     btnFinalizar.disabled = true;
 

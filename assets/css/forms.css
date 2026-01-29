@@ -2,7 +2,6 @@
     box-sizing: border-box; 
     margin: 0; 
     padding: 0; 
-    font-family: sans-serif; 
 }
 
 body { 
@@ -40,26 +39,22 @@ body {
     position: relative;
     border: 6px double #2121ff;
     border-radius: 40px;
-    padding: 50px 20px 40px 20px;
+    padding: 60px 20px 40px 20px;
     background-color: #000;
-    z-index: 1;
-    
-    min-height: 580px; 
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 }
 
 .tunnel {
     position: absolute;
     width: 40px;
-    height: 90px;
+    height: 70px; 
     background-color: #000;
-    
     border-top: 6px double #2121ff;
     border-bottom: 6px double #2121ff;
-    border-left: none;
-    border-right: none;
     
-    top: 50%;
-    transform: translateY(-50%);
+    top: 270px; 
     z-index: 10;
 }
 
@@ -79,11 +74,45 @@ body {
     gap: 15px; 
 }
 
-.foto-container {
-    width: 130px;
-    border: 4px solid #2121ff;
-    border-radius: 5px;
+.fotoContainer {
+    width: 135px;
+    border: 3.5px solid #2121ff;
+    border-radius: 4px;
     overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Caixa branca de upload */
+.uploadBox {
+    background: #fff;
+    height: 160px;
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    justify-content: center; 
+    text-align: center;
+    color: #000;
+    cursor: pointer;
+    position: relative;
+    padding: 0 10px;
+}
+
+/* Ícone de + */
+.plus-icon {
+    font-size: 32px;
+    font-weight: bold;
+    margin-bottom: 5px;
+    line-height: 1;
+}
+
+/* Texto de Upload */
+.upload-text { 
+    font-size: 10px; 
+    font-weight: 800; 
+    text-transform: uppercase;
+    line-height: 1.2;
+    letter-spacing: 0.5px;
 }
 
 .uploadBox {
@@ -93,20 +122,30 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    text-align: center;
     color: #000;
-    cursor: pointer;
+    border-radius: 4px;
+    position: relative;
+    overflow: hidden;
 }
 
-.plus { 
-    font-size: 30px; 
-    font-weight: bold; 
+#previewFoto {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0; /* Fica atrás da barra rosa se houver uma */
+}
+
+.pink-detail {
+    z-index: 2; /* Garante que a barra rosa fique sempre por cima da foto */
 }
 
 .upload-text { 
     font-size: 12px; 
     font-weight: bold; 
-    text-transform: uppercase; 
+    text-transform: uppercase;
+    display: flex;
 }
 
 .infoFields { 
@@ -141,25 +180,18 @@ body {
 
 /* RELACIONAMENTO */
 .statusSection {
-    position: absolute;
-    top: 50%;
-    left: 0;
-    width: 100%;
-    transform: translateY(-50%); 
-    
-    /* Layout */
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 10px;
     font-size: 11px;
-    
-    z-index: 20;
-    margin: 0;
+    padding: 10px 0;
+    margin: 10px 0;
+    min-height: 70px;
 }
 
 .bottomFields { 
-    margin-top: 250px; 
+    margin-top: 30px; 
 }
 
 .pacman-yellow {
@@ -193,28 +225,21 @@ body {
 }
 
 /* INPUT FELIZ */
-.fake-upload-input {
-    display: flex;
-    border: 1px solid #2121ff;
-    border-radius: 20px;
-    overflow: hidden;
-    margin-top: 5px;
-}
-.fake-upload-input input { 
-    border: none; 
-    flex: 1; 
-    background: transparent; 
-    padding: 8px; 
-    color: #fff; 
-    outline: none; 
-}
-
-.fake-upload-input button { 
-    background: #ddd; 
-    border: none; 
+.upload-input button { 
+    border: 1px solid #2121ff;; 
     padding: 0 10px; 
     font-weight: bold; 
     cursor: pointer; 
+    margin-top: 10px;
+    width: 100%;
+    background-color: transparent !important;
+    color: #FFFFFF !important;
+    border-radius: 10px;
+}
+
+.upload-input button:hover { 
+    background-color: #1616aa !important;
+    border-color: #2121ff !important;
 }
 
 /* BOTÃO FINALIZAR */
@@ -229,4 +254,9 @@ body {
     font-weight: bold;
     cursor: pointer;
     margin-top: 20px;
+}
+
+.btn-finalizar:hover {
+    background-color: #1616aa !important;
+    border-color: #2121ff !important;
 }

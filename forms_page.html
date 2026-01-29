@@ -19,10 +19,17 @@
 
             <div class="content">
                 <div class="topSection">
+                    <script src="assets/js/upload.js"></script>
+
                     <div class="fotoContainer">
-                        <div class="uploadBox">
-                            <span class="plus">+</span>
-                            <span class="upload-text">Insira uma foto sua :)</span>
+                        <input type="file" id="inputFoto" accept="image/*" style="display: none;">
+                        <div class="uploadBox" id="dropZone">
+                            <div class="pink-detail"></div>
+                            <div id="uploadPlaceholder">
+                                <span class="plus-icon">+</span>
+                                <span class="upload-text">Insira uma foto sua :)</span>
+                            </div>
+                            <img id="previewFoto" src="" alt="Sua foto" style="display: none; width: 100%; height: 100%; object-fit: cover;">
                         </div>
                     </div>
 
@@ -31,44 +38,57 @@
                             <label>Nome</label>
                             <input type="text" id="form-nome" placeholder="Júlia Marcelina">
                         </div>
+
                         <div class="row">
                             <div class="inputGroup">
                                 <label>Idade</label>
                                 <input type="number" id="form-idade" placeholder="19">
                             </div>
+
                             <div class="inputGroup">
                                 <label>Orientação sexual</label>
                                 <input type="text" id="form-sexualidade" placeholder="Questionando">
                             </div>
+
                         </div>
+
                         <div class="row">
                             <div class="inputGroup">
                                 <label>Pronomes</label>
                                 <input type="text" id="form-pronome" placeholder="Ela/Dela">
                             </div>
+
                             <div class="inputGroup">
                                 <label>Cidade</label>
                                 <input type="text" id="form-cidade" placeholder="Belo Horizonte - MG">
                             </div>
+
                         </div>
+
                     </div>
+                    
                 </div>
 
                 <div class="statusSection">
                     <span>Relacionamento:</span>
+
                     <div class="pacman-yellow"></div>
+
                     <label class="radio-item">
                         <input type="radio" name="rel" checked>
                         <span class="circle"></span> Solteiro(a)
                     </label>
+
                     <label class="radio-item">
                         <input type="radio" name="rel">
                         <span class="circle"></span> Namorando
                     </label>
+
                     <label class="radio-item">
                         <input type="radio" name="rel">
                         <span class="circle"></span> Enrolado
                     </label>
+
                 </div>
 
                 <div class="bottomFields">
@@ -77,13 +97,13 @@
                     <div class="inputGroup"><label>Hobbies</label><input type="text" id="form-hobbie" placeholder="Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque dignissimos autem molestiae porro, velit dolorem, voluptatem sed accusamus voluptates aperiam nesciunt veniam illum eum ipsa, nostrum soluta distinctio beatae neque."></div> 
                     <div class="inputGroup"><label>Música do momento</label><input type="text" id="form-musica" placeholder="Sina de Ofélia"></div>
                     
-                    <div class="happy-field">
-                        <label>Algo que te faz feliz (Hobby/Amigos/Animalzinho^^)</label>
-                        <div class="fake-upload-input">
-                            <input type="text" placeholder="Algo que te faz feliz...">
+                    <div class="happyField">
+                        <div class="upload-input">
+                            <p>Algo que te faz feliz (Hobby/Amigos/Animalzinho^^)</p>
                             <button type="button">+ Upload</button>
                         </div>
                     </div>
+
                 </div>
             </div>
         </section>
@@ -93,6 +113,7 @@
         <footer class="logoFooter">
             <img src="assets/img/Logo.png" alt="CACCP">
         </footer>
+
     </main>
 </body>
 </html>

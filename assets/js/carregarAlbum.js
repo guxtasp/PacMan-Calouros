@@ -5,12 +5,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const inputMusica = document.getElementById('form-musica');
     const previewContainer = document.getElementById('music-preview');
     
-    // VISUAL (O que o usuário vê)
+    // VISUAL (Tela do formulário)
     const imgAlbum = document.getElementById('preview-album-cover');
     const txtTrack = document.getElementById('preview-track-name');
     const txtArtist = document.getElementById('preview-artist-name');
 
-    // EXPORTAÇÃO (Oculto)
+    // EXPORTAÇÃO (Oculto para o Canvas)
     const imgAlbumExport = document.getElementById('export-musica-capa');
     const txtMusicaExport = document.getElementById('export-musica'); 
 
@@ -21,116 +21,132 @@ document.addEventListener('DOMContentLoaded', () => {
             clearTimeout(timeoutToken);
             const termo = this.value.trim();
 
+            // Limpeza Imediata (Reseta tudo ao digitar)
+            if(imgAlbum) {
+                imgAlbum.src = ""; 
+                imgAlbum.style.display = 'none'; // Esconde a imagem quebrada
+            }
+            if(txtTrack) txtTrack.innerText = "Digitando...";
+            if(txtArtist) txtArtist.innerText = "";
+            
+            // Reseta exportação e dados globais
+            window.selectedMusicData = null;
+            if(imgAlbumExport) imgAlbumExport.src = "";
+            if(txtMusicaExport) txtMusicaExport.innerHTML = "";
+
             if (termo.length < 3) return;
 
-            // Feedback visual: Limpa e mostra que está vivo
             if(txtTrack) txtTrack.innerText = "Buscando...";
-            if(txtArtist) txtArtist.innerText = "";
             previewContainer.style.display = 'flex';
-            if(imgAlbum) imgAlbum.style.opacity = "0.5"; 
 
+            // Aguarda 800ms antes de buscar
             timeoutToken = setTimeout(() => {
-                buscarMusica(termo);
+                buscarMusicaProxy(termo);
             }, 800);
         });
     }
 
-    async function buscarMusica(termo) {
+    async function buscarMusicaProxy(termo) {
+        const termoLimpo = termo.replace(/-/g, ' ').replace(/\s+/g, ' ');
+        
+        // URL DIRETA
+        const urlDireta = `https://itunes.apple.com/search?term=${encodeURIComponent(termoLimpo)}&entity=song&limit=1&media=music&country=BR`;
+        
+        // URL PROXY 
+        // O allorigins.win baixa o JSON da Apple e entrega para o seu site sem bloqueios
+        const urlProxy = `https://api.allorigins.win/raw?url=${encodeURIComponent(urlDireta)}`;
+
         try {
-            // Limpeza do termo e foco no BRASIL
-            const termoLimpo = termo.replace(/-/g, ' ').replace(/\s+/g, ' ');
-            // removemos &lang=pt_br pois as vezes buga o retorno JSON, deixamos só country=BR
-            const url = `https://itunes.apple.com/search?term=${encodeURIComponent(termoLimpo)}&entity=song&limit=1&media=music&country=BR`;
-            
-            // Faz a busca simples (sem headers complexos que o iOS odeia)
-            const response = await fetch(url);
-            
-            if (!response.ok) throw new Error("Erro de rede Apple");
-            
+            let response;
+            try {
+                // Tenta direto primeiro
+                response = await fetch(urlDireta);
+                if(!response.ok) throw new Error("Bloqueio Apple");
+            } catch (e) {
+                // Se der erro (CORS), tenta pelo Proxy
+                console.warn("API Direta bloqueada, usando Proxy...", e);
+                response = await fetch(urlProxy);
+            }
+
+            if (!response.ok) throw new Error("Erro na conexão");
+
             const data = await response.json();
 
-            if (data.results.length > 0) {
-                const musica = data.results[0];
-                const capaAlta = musica.artworkUrl100.replace('100x100bb', '600x600bb');
-
-                // --- FASE 1: ATUALIZAÇÃO VISUAL IMEDIATA ---
-                // Não esperamos converter nada. Mostra direto.
-                if (imgAlbum) {
-                    imgAlbum.src = capaAlta;
-                    imgAlbum.style.opacity = "1";
-                    // Crossorigin ajuda, mas se falhar, a imagem carrega igual
-                    imgAlbum.setAttribute('crossOrigin', 'anonymous');
-                }
-                if (txtTrack) txtTrack.innerText = musica.trackName;
-                if (txtArtist) txtArtist.innerText = musica.artistName;
-                previewContainer.style.display = 'flex';
-
-                // Salva dados básicos (URL normal por enquanto)
-                window.selectedMusicData = {
-                    track: musica.trackName,
-                    artist: musica.artistName,
-                    cover: capaAlta
-                };
-
-                // --- FASE 2: PREPARAÇÃO PARA EXPORTAÇÃO (TRY/CATCH SILENCIOSO) ---
-                // Tenta preparar a imagem para o print. Se o iPhone bloquear, o usuário nem percebe.
-                try {
-                    atualizarExportacao(musica.trackName, musica.artistName, capaAlta, imgAlbumExport, txtMusicaExport);
-                } catch (errExport) {
-                    console.log("Erro ao preparar exportação (iOS restrito):", errExport);
-                    // Mesmo com erro, preenchemos com a URL normal
-                    if(imgAlbumExport) imgAlbumExport.src = capaAlta;
-                }
-
+            if (data.results && data.results.length > 0) {
+                processarSucesso(data.results[0]);
             } else {
                 mostrarErro("Música não encontrada");
             }
         } catch (error) {
-            console.error("Erro fatal na busca:", error);
-            // Se o erro for de conexão real, mostramos
+            console.error(error);
             mostrarErro("Erro de conexão/Busca");
+        }
+    }
+
+    function processarSucesso(musica) {
+        const capaAlta = musica.artworkUrl100.replace('100x100bb', '600x600bb');
+
+        // --- ATUALIZAÇÃO DO PREVIEW (VISUAL) ---
+        if (imgAlbum) {
+            imgAlbum.removeAttribute('crossOrigin'); 
+            imgAlbum.src = capaAlta;
+            imgAlbum.style.display = 'block'; // Garante que apareça
+        }
+        
+        if (txtTrack) txtTrack.innerText = musica.trackName;
+        if (txtArtist) txtArtist.innerText = musica.artistName;
+
+        // Salva dados globais
+        window.selectedMusicData = {
+            track: musica.trackName,
+            artist: musica.artistName,
+            cover: capaAlta // Salva a URL por enquanto
+        };
+
+        // --- PREPARAÇÃO PARA EXPORTAÇÃO ---
+        if (txtMusicaExport) {
+            txtMusicaExport.innerHTML = `<strong>${musica.trackName}</strong><br><span>${musica.artistName}</span>`;
+        }
+
+        // Converte a imagem para Base64 para o iOS aceitar no print
+        converterParaBase64(capaAlta, imgAlbumExport);
+    }
+
+    async function converterParaBase64(url, imgDestino) {
+        if(!imgDestino) return;
+
+        try {
+            const proxyImagem = `https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`;
+            
+            const response = await fetch(proxyImagem);
+            const blob = await response.blob();
+            
+            const reader = new FileReader();
+            reader.onloadend = function() {
+                const base64data = reader.result;
+                
+                // Atualiza o elemento de exportação
+                imgDestino.src = base64data;
+                imgDestino.style.display = 'block';
+
+                // Atualiza a variável global com o Base64
+                if(window.selectedMusicData) {
+                    window.selectedMusicData.cover = base64data;
+                }
+            }
+            reader.readAsDataURL(blob);
+
+        } catch (e) {
+            console.warn("Falha na conversão Base64. Usando URL direta (pode falhar no iOS).", e);
+            imgDestino.src = url;
+            imgDestino.style.display = 'block';
         }
     }
 
     function mostrarErro(msg) {
         if(txtTrack) txtTrack.innerText = msg;
         if(txtArtist) txtArtist.innerText = "";
-        if(imgAlbum) imgAlbum.src = "";
+        if(imgAlbum) imgAlbum.style.display = 'none';
         window.selectedMusicData = null;
-    }
-
-    // Função separada para lidar com a conversão da imagem
-    async function atualizarExportacao(track, artist, urlImagem, imgExport, txtExport) {
-        // Atualiza texto oculto
-        if (txtExport) {
-            txtExport.innerHTML = `<strong>${track}</strong><br><span>${artist}</span>`;
-        }
-
-        if (imgExport) {
-            // Tenta baixar a imagem como BLOB (Binary Large Object)
-            // O iOS as vezes bloqueia isso se não tiver headers certos, mas vale tentar
-            try {
-                const response = await fetch(urlImagem);
-                const blob = await response.blob();
-                const reader = new FileReader();
-                
-                reader.onloadend = function() {
-                    const base64data = reader.result;
-                    imgExport.src = base64data;
-                    imgExport.style.display = 'block';
-                    
-                    // Atualiza o dado global com a versão Base64 (melhor para exportar)
-                    if(window.selectedMusicData) {
-                        window.selectedMusicData.cover = base64data;
-                    }
-                }
-                reader.readAsDataURL(blob);
-            } catch (e) {
-                // Se o fetch da imagem falhar (CORS do iOS), usa a URL normal
-                // O html2canvas pode falhar, mas pelo menos a busca funcionou
-                imgExport.src = urlImagem;
-                imgExport.style.display = 'block';
-            }
-        }
     }
 });

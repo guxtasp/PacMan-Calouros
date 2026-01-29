@@ -200,6 +200,10 @@ body {
     background: #ffff00;
     clip-path: polygon(100% 0%, 100% 35%, 50% 50%, 100% 65%, 100% 100%, 0% 100%, 0% 0%);
     border-radius: 50%;
+
+    position: relative;
+    z-index: 55;
+    flex-shrink: 0;
 }
 
 .radio-item { 
@@ -314,17 +318,17 @@ body {
     top: 896px; 
     left: 240px; 
 
-    width: 601px; 
+    width: 600px; 
     height: 60px; 
 
     margin: 0 !important;
     padding: 0 !important;
 
-    line-height: 1;
+    line-height: 1.1;
 
     display: flex;
-    justify-content: center; /* Centraliza horizontalmente */
-    align-items: center;     /* Centraliza verticalmente */
+    justify-content: center;
+    align-items: center;
     
     text-align: center;
     font-family: 'Ari W9500';
@@ -352,16 +356,15 @@ body {
     line-height: 1;
 
     display: flex;
-    justify-content: center; /* Centraliza horizontalmente */
-    align-items: center;     /* Centraliza verticalmente */
+    justify-content: center;
+    align-items: center; 
     
     text-align: center;
     font-family: 'Ari W9500';
     font-size: 53px;
-    font-weight: regular;
+    font-weight: normal;
     text-transform: uppercase;
     color: #000000;
-
 
     overflow: hidden; 
     white-space: nowrap;
@@ -381,13 +384,13 @@ body {
     line-height: 1;
 
     display: flex;
-    justify-content: center; /* Centraliza horizontalmente */
-    align-items: center;     /* Centraliza verticalmente */
+    justify-content: center;
+    align-items: center;
     
     text-align: center;
     font-family: 'Ari W9500';
     font-size: 53px;
-    font-weight: regular;
+    font-weight: normal;
     text-transform: uppercase;
     color: #000000;
 
@@ -400,7 +403,7 @@ body {
     top: 1020px; 
     left: 240px; 
 
-    width: 601px; 
+    width: 600px; 
     height: 60px; 
 
     margin: 0 !important;
@@ -409,13 +412,13 @@ body {
     line-height: 1;
 
     display: flex;
-    justify-content: center; /* Centraliza horizontalmente */
-    align-items: center;     /* Centraliza verticalmente */
+    justify-content: center;
+    align-items: center;
     
     text-align: center;
     font-family: 'Ari W9500';
     font-size: 53px;
-    font-weight: regular;
+    font-weight: normal;
     text-transform: uppercase;
     color: #000000;
 
@@ -438,13 +441,13 @@ body {
     line-height: 1;
 
     display: flex;
-    justify-content: left; /* Centraliza horizontalmente */
-    align-items: center;     /* Centraliza verticalmente */
+    justify-content: left;
+    align-items: center;
     
     text-align: left;
     font-family: 'Ari W9500';
     font-size: 33px;
-    font-weight: regular;
+    font-weight: normal;
     text-transform: uppercase;
     color: #FFFFFF;
 
@@ -466,13 +469,13 @@ body {
     line-height: 1;
 
     display: flex;
-    justify-content: left; /* Centraliza horizontalmente */
-    align-items: center;     /* Centraliza verticalmente */
+    justify-content: left;
+    align-items: center;
     
     text-align: left;
     font-family: 'Ari W9500';
     font-size: 33px;
-    font-weight: regular;
+    font-weight: normal;
     text-transform: uppercase;
     color: #FFFFFF;
 
@@ -495,13 +498,13 @@ body {
     line-height: 1;
 
     display: flex;
-    justify-content: left; /* Centraliza horizontalmente */
-    align-items: center;     /* Centraliza verticalmente */
+    justify-content: left;
+    align-items: center;
     
     text-align: left;
     font-family: 'Ari W9500';
     font-size: 33px;
-    font-weight: regular;
+    font-weight: normal;
     text-transform: uppercase;
     color: #FFFFFF;
 
@@ -523,13 +526,13 @@ body {
     line-height: 1;
 
     display: flex;
-    justify-content: left; /* Centraliza horizontalmente */
-    align-items: center;     /* Centraliza verticalmente */
+    justify-content: left;
+    align-items: center;
     
     text-align: left;
     font-family: 'Ari W9500';
     font-size: 33px;
-    font-weight: regular;
+    font-weight: normal;
     text-transform: uppercase;
     color: #FFFFFF;
 
@@ -569,19 +572,17 @@ body {
 
 #export-happy { 
     position: absolute;
-    top: 1461px;  /* Ajuste conforme seu Figma */
-    left: 245px;  /* Ajuste conforme seu Figma */
-    width: 169px; /* Tamanho da capa no card */
+    top: 1461px;
+    left: 245px;
+    width: 169px;
     height: 218px;
     object-fit: cover;
     display: block !important; /* Garante que apareça no export */
 
     object-fit: cover; 
     
-    /* Garante que o corte seja centralizado */
     object-position: center; 
     
-    /* Evita cores de fundo estranhas se a imagem demorar a carregar */
     background-color: transparent;
 
 }
@@ -608,7 +609,7 @@ body {
     
     font-family: 'Ari W9500';
     font-size: 12px;
-    font-weight: regular;
+    font-weight: normal;
     text-transform: uppercase;
     color: #FFFFFF;
 
@@ -622,16 +623,15 @@ body {
 
 #export-musica-capa { 
     position: absolute;
-    top: 1150px;  /* Ajuste conforme seu Figma */
-    left: 728px;  /* Ajuste conforme seu Figma */
-    width: 160px; /* Tamanho da capa no card */
+    top: 1150px;
+    left: 728px;
+    width: 160px;
     height: 160px;
     object-fit: cover;
     display: block !important; /* Garante que apareça no export */
 
 }
 
-/* Container do Overlay (Tela preta de fundo) */
 .overlay {
     position: fixed;
     top: 0; left: 0;
@@ -645,20 +645,18 @@ body {
 }
 .hidden { display: none !important; }
 
-/* O Cartão em si */
 .card-container {
     position: relative;
-    width: 1080px; /* Resolução alta para ficar bonito */
+    width: 1080px; 
     height: 1920px;
-    transform: scale(0.45); /* Diminui para caber na tela do navegador */
+    transform: scale(0.45);
     transform-origin: center top;
     background: #000;
     box-shadow: 0 0 50px rgba(80, 37, 209, 0.5);
     color: white;
-    font-family: 'Courier New', monospace; /* Fonte estilo retro */
+    font-family: 'Courier New', monospace;
 }
 
-/* Imagem de fundo preenche tudo */
 .bg-template {
     width: 100%;
     height: 100%;
@@ -667,7 +665,6 @@ body {
     z-index: 1;
 }
 
-/* Botão Fechar */
 .btn-close {
     position: absolute;
     top: -40px; right: -40px;
@@ -678,7 +675,6 @@ body {
 }
 
 /* --- POSICIONAMENTOS (Ajustados para a imagem STORY-VETERANO.png) --- */
-
 /* 1. Foto Principal */
 .pos-foto-main {
     position: absolute;
@@ -700,7 +696,7 @@ body {
     transform: translateX(-50%);
     width: 600px;
     text-align: center;
-    color: #000; /* Texto preto no fundo amarelo */
+    color: #000;
     z-index: 2;
     font-weight: bold;
     text-transform: uppercase;
@@ -788,4 +784,20 @@ body {
     align-items: center;
     gap: 10px;
     margin-top: 5px;
+}
+
+
+@media (max-width: 768px) {
+    .tunnel {
+        z-index: 1 !important; 
+    }
+    .statusSection, 
+    .inputGroup, 
+    .radio-item, 
+    label, 
+    span,
+    p {
+        position: relative !important;
+        z-index: 20 !important;
+    }
 }

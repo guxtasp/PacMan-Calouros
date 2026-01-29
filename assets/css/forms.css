@@ -200,6 +200,10 @@ body {
     background: #ffff00;
     clip-path: polygon(100% 0%, 100% 35%, 50% 50%, 100% 65%, 100% 100%, 0% 100%, 0% 0%);
     border-radius: 50%;
+
+    position: relative;
+    z-index: 55;
+    flex-shrink: 0;
 }
 
 .radio-item { 
@@ -788,4 +792,26 @@ body {
     align-items: center;
     gap: 10px;
     margin-top: 5px;
+}
+
+/* --- CORREÇÃO FINAL PARA O TÚNEL --- */
+@media (max-width: 768px) {
+    
+    /* 1. O túnel vai para o fundo */
+    .tunnel {
+        z-index: 1 !important; 
+        /* Opcional: Se quiser descer ele um pouco para não cortar a linha do relacionamento: */
+        /* top: 380px !important; */ 
+    }
+
+    /* 2. O conteúdo (textos, inputs, bolinhas) vem para FRENTE */
+    .statusSection, 
+    .inputGroup, 
+    .radio-item, 
+    label, 
+    span,
+    p {
+        position: relative !important; /* Essencial para o z-index funcionar */
+        z-index: 20 !important;        /* Número maior que o do túnel */
+    }
 }

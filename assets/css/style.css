@@ -32,7 +32,7 @@ body {
   font-size: 1rem;
   line-height: var(--line-height-base);
   min-height: 100vh;  
-
+}
 
 html, body {
   overflow-x: hidden;
@@ -40,12 +40,16 @@ html, body {
   height: 100%;
 }
 
+html{
+  background-color: #000000;
+}
+
 h1, h2 {
   font-weight: 400;
 }
 
 .introTurmas {
-  width: 100vw;
+  width: 100%;
   display: flex;
   gap: 30px;
   flex-direction: column;
@@ -54,7 +58,7 @@ h1, h2 {
   background-color: #000000;
 }
 .selectionTurmas{
-  width: 100vw;
+  width: 100%;
   padding: clamp(16px, 5vw, 100px); /* o clamp ajusta o padding conforme o tamanho da tela */
   display: flex;
   flex-direction: column;

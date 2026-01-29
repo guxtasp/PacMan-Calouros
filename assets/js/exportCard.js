@@ -171,6 +171,7 @@ const exportCard = async () => {
     ajustarFontesEmGrupo(['export-idade', 'export-pronome'], 53);
     ajustarFontesEmGrupo(['export-instagram', 'export-twitter', 'export-sexualidade','export-rel'], 33);
     ajustarFonte('export-musica', 12);
+    ajustarFonte('export-cidade', 53);
 
     // --- PROCESSO DE EXPORTAÇÃO ---
     btnFinalizar.innerText = "GERANDO CARD...";

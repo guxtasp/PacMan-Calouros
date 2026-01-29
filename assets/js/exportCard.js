@@ -50,6 +50,8 @@ const exportCard = async () => {
     const previewFoto = document.getElementById('previewFoto');
     const exportFoto = document.getElementById('export-foto');
     const exportHobbyFoto = document.getElementById('export-happy');
+    const inputIdade = document.getElementById('form-idade');
+    const inputPronome = document.getElementById('form-pronome');
 
     if (!target) {
         alert("Erro: Alvo da exportação não encontrado.");
@@ -60,6 +62,20 @@ const exportCard = async () => {
     if (!inputNome || !inputNome.value.trim()) {
         alert("Ops! Você esqueceu de colocar o seu NOME.");
         if(inputNome) inputNome.focus();
+        return;
+    }
+
+    // Verifica se a IDADE está vazia
+    if (!inputIdade || !inputIdade.value.trim()) {
+        alert("Ops! Você esqueceu de colocar a sua IDADE.");
+        if(inputIdade) inputIdade.focus();
+        return;
+    }
+
+    // 3. Verifica se o PRONOME está vazio 
+    if (!inputPronome || !inputPronome.value.trim()) {
+        alert("Ops! Você esqueceu de colocar o seu PRONOME.");
+        if(inputPronome) inputPronome.focus();
         return;
     }
 
